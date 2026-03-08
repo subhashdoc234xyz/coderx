@@ -602,6 +602,7 @@ const socket = io('http://localhost:5000');
 let isRunning = false;
 let shouldStop = false;
 let isSocketRunning = false; 
+let previouslyEnteredInputs = []; // NEW: Tracks inputs given during 'Run Program'
 
 socket.on('connect', () => { console.log("Connected to Real-Time Compiler Server"); });
 socket.on('connect_error', () => { console.log("Cannot reach the server on port 5000."); });
@@ -632,6 +633,7 @@ socket.on('input_required', () => {
 
     const send = () => {
         const val = inputField.value.trim();
+        previouslyEnteredInputs.push(val); // NEW: Save the input for the AI Trace!
         socket.emit('submit_input', val);
         modal.style.display = 'none';
         btn.removeEventListener('click', send);
@@ -684,6 +686,7 @@ document.getElementById('runBtn').addEventListener('click', () => {
     shouldStop = false;
     isRunning = true;
     isSocketRunning = true; 
+    previouslyEnteredInputs = []; // NEW: Clear old inputs on a fresh run
     
     document.getElementById('stopBtn').style.display = 'flex';
     document.getElementById('runBtn').disabled = true;
@@ -693,13 +696,11 @@ document.getElementById('runBtn').addEventListener('click', () => {
     document.getElementById('programOutput').innerText = 'Running...';
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> Compiling & Executing...</div>';
     
-    // Kept standard run program scroll intact
     document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     socket.emit('run_code', { code, language });
 });
 
-// NEW: Helper function to pause execution and ask for input for the AI Trace
 function askForInputForVisualization() {
     return new Promise((resolve) => {
         const modal = document.getElementById('inputModal');
@@ -732,18 +733,20 @@ function askForInputForVisualization() {
     });
 }
 
-// ----------------------------------------------------
-// AI TRACE ENGINE INTEGRATION (With Input Handling)
-// ----------------------------------------------------
 document.getElementById('visualizeBtn').addEventListener('click', async () => {
     let code = editor.value.trim();
     if (!code) return;
 
-    // NEW: Check if the code requires input BEFORE starting the UI changes
     const hasInputCommands = /input\s*\(|scanf\s*\(|cin\s*>>|Scanner|\.readLine|\.next/i.test(code);
     let userInputs = "";
     if (hasInputCommands) {
-        userInputs = await askForInputForVisualization(); 
+        if (previouslyEnteredInputs.length > 0) {
+            // NEW: Automatically use the inputs the user just typed during "Run Program"
+            userInputs = previouslyEnteredInputs.join(', ');
+        } else {
+            // Fallback: If they didn't run the program first, ask them now
+            userInputs = await askForInputForVisualization(); 
+        }
     }
 
     shouldStop = false;
@@ -759,8 +762,6 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     expBox.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary);"></i> Light is analyzing the logic path...';
     document.getElementById('variablesList').innerHTML = ''; 
     document.getElementById('flowDiagram').innerHTML = '<p style="color:#64748b;">Generating diagram...</p>';
-    
-    // REMOVED: document.getElementById('visualize').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     const diagramCode = generateDynamicDiagram(code);
     try {
@@ -787,7 +788,7 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
         const response = await fetch('http://localhost:5001/generate_trace', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: code, inputs: userInputs }) // NEW: Sending inputs to backend
+            body: JSON.stringify({ code: code, inputs: userInputs })
         });
         
         if (!response.ok) throw new Error("Trace generation failed. Is port 5001 running?");
@@ -807,8 +808,6 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
             const activeElement = document.getElementById(`line-${step.line}`);
             if (activeElement) {
                 activeElement.classList.add('active');
-                
-                // FIXED: Now it only scrolls the inside of the animation box, without pulling your whole webpage down
                 activeElement.parentElement.scrollTop = activeElement.offsetTop - 40;
             }
 
