@@ -7,6 +7,11 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
+
+// --- ADDED THIS LINE ---
+app.use(express.static('public')); 
+// -----------------------
+
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
