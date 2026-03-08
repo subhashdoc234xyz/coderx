@@ -692,6 +692,8 @@ document.getElementById('runBtn').addEventListener('click', () => {
     
     document.getElementById('programOutput').innerText = 'Running...';
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> Compiling & Executing...</div>';
+    
+    // Kept standard run program scroll intact
     document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     socket.emit('run_code', { code, language });
@@ -757,7 +759,8 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     expBox.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary);"></i> Light is analyzing the logic path...';
     document.getElementById('variablesList').innerHTML = ''; 
     document.getElementById('flowDiagram').innerHTML = '<p style="color:#64748b;">Generating diagram...</p>';
-    document.getElementById('visualize').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // REMOVED: document.getElementById('visualize').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     const diagramCode = generateDynamicDiagram(code);
     try {
@@ -804,7 +807,9 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
             const activeElement = document.getElementById(`line-${step.line}`);
             if (activeElement) {
                 activeElement.classList.add('active');
-                activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // FIXED: Now it only scrolls the inside of the animation box, without pulling your whole webpage down
+                activeElement.parentElement.scrollTop = activeElement.offsetTop - 40;
             }
 
             if (step.memory_state) {
