@@ -464,8 +464,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
         <button id="stopChatBtn" onclick="stopChat()" style="display:none;background:var(--danger)">⏹</button>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
 <script>
 window.copyCodeNow = function(btn) {
     const pre = btn.nextElementSibling;
@@ -602,7 +601,7 @@ const socket = io('http://localhost:5000');
 let isRunning = false;
 let shouldStop = false;
 let isSocketRunning = false; 
-let previouslyEnteredInputs = []; // NEW: Tracks inputs given during 'Run Program'
+let previouslyEnteredInputs = []; 
 
 socket.on('connect', () => { console.log("Connected to Real-Time Compiler Server"); });
 socket.on('connect_error', () => { console.log("Cannot reach the server on port 5000."); });
@@ -633,7 +632,7 @@ socket.on('input_required', () => {
 
     const send = () => {
         const val = inputField.value.trim();
-        previouslyEnteredInputs.push(val); // NEW: Save the input for the AI Trace!
+        previouslyEnteredInputs.push(val); 
         socket.emit('submit_input', val);
         modal.style.display = 'none';
         btn.removeEventListener('click', send);
@@ -686,7 +685,7 @@ document.getElementById('runBtn').addEventListener('click', () => {
     shouldStop = false;
     isRunning = true;
     isSocketRunning = true; 
-    previouslyEnteredInputs = []; // NEW: Clear old inputs on a fresh run
+    previouslyEnteredInputs = []; 
     
     document.getElementById('stopBtn').style.display = 'flex';
     document.getElementById('runBtn').disabled = true;
@@ -696,7 +695,8 @@ document.getElementById('runBtn').addEventListener('click', () => {
     document.getElementById('programOutput').innerText = 'Running...';
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> Compiling & Executing...</div>';
     
-    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // REMOVED: Auto-scroll on run program
+    // document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     socket.emit('run_code', { code, language });
 });
@@ -741,10 +741,8 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     let userInputs = "";
     if (hasInputCommands) {
         if (previouslyEnteredInputs.length > 0) {
-            // NEW: Automatically use the inputs the user just typed during "Run Program"
             userInputs = previouslyEnteredInputs.join(', ');
         } else {
-            // Fallback: If they didn't run the program first, ask them now
             userInputs = await askForInputForVisualization(); 
         }
     }
@@ -808,6 +806,7 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
             const activeElement = document.getElementById(`line-${step.line}`);
             if (activeElement) {
                 activeElement.classList.add('active');
+                // The scrolling here is fine, it only scrolls the text inside the animation box, not your webpage.
                 activeElement.parentElement.scrollTop = activeElement.offsetTop - 40;
             }
 
@@ -928,7 +927,10 @@ document.getElementById('explainBtn').addEventListener('click', async () => {
     const contentDiv = document.getElementById('explanationContent');
     explanationSection.style.display = 'block';
     contentDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing code...';
-    explanationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // REMOVED: Auto-scroll on explain code
+    // explanationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
     try {
         const response = await fetch('http://localhost:5001/chat', {
             method: 'POST',
