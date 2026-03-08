@@ -7,7 +7,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <style>
 /* =========================================
    THEME: NEO-SKY & OBSIDIAN GLASS
@@ -18,7 +20,7 @@
 
 :root {
   /* Core Colors */
-  --primary: #0ea5e9;        /* Vivid Sky Blue */
+  --primary: #0ea5e9;         /* Vivid Sky Blue */
   --primary-glow: rgba(14, 165, 233, 0.4);
   --primary-dark: #0284c7;
   
@@ -695,9 +697,6 @@ document.getElementById('runBtn').addEventListener('click', () => {
     document.getElementById('programOutput').innerText = 'Running...';
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> Compiling & Executing...</div>';
     
-    // REMOVED: Auto-scroll on run program
-    // document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
     socket.emit('run_code', { code, language });
 });
 
@@ -806,7 +805,6 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
             const activeElement = document.getElementById(`line-${step.line}`);
             if (activeElement) {
                 activeElement.classList.add('active');
-                // The scrolling here is fine, it only scrolls the text inside the animation box, not your webpage.
                 activeElement.parentElement.scrollTop = activeElement.offsetTop - 40;
             }
 
@@ -927,9 +925,6 @@ document.getElementById('explainBtn').addEventListener('click', async () => {
     const contentDiv = document.getElementById('explanationContent');
     explanationSection.style.display = 'block';
     contentDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing code...';
-    
-    // REMOVED: Auto-scroll on explain code
-    // explanationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
     try {
         const response = await fetch('http://localhost:5001/chat', {
