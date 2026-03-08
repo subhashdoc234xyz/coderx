@@ -89,6 +89,27 @@ body {
     text-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
 }
 
+/* --- AUTHENTICATION GATE OVERLAY --- */
+#authOverlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75); /* Dark obsidian blur */
+    backdrop-filter: blur(12px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9998; /* Just below the fading intro overlay */
+}
+.auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem; border-radius: 30px; width: 90%; max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255,255,255,0.5); text-align: center;
+}
+.auth-input {
+    width: 100%; padding: 14px; background: #f8fafc; color: var(--text-main);
+    border: 2px solid #e2e8f0; border-radius: 14px; outline: none; transition: 0.3s;
+    margin-bottom: 15px; font-weight: 600;
+}
+.auth-input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-glow); }
+
 /* --- Header --- */
 header {
   background: rgba(255, 255, 255, 0.7);
@@ -253,7 +274,6 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 .var-name { font-weight: 800; color: var(--text-muted); font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
 .var-value { font-size: 1.4em; color: var(--primary-dark); font-weight: 700; margin-top: 5px; font-family: 'JetBrains Mono', monospace; }
 
-/* The Flash and Replace Animation */
 .flash-update { animation: flashGreen 0.6s ease; }
 @keyframes flashGreen {
     0% { background-color: white; transform: scale(1); border-color: #e2e8f0; }
@@ -330,6 +350,26 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 </head>
 <body>
 <div id="introOverlay"><h1>Welcome to CodeViz</h1></div>
+
+<div id="authOverlay">
+    <div class="auth-card">
+        <h2 style="color:var(--obsidian); margin-bottom: 5px; font-size: 2rem; font-weight: 800;">CodeViz</h2>
+        <p id="gateSubtitle" style="color:var(--text-muted); margin-bottom: 25px; font-weight: 600;">Please log in to continue</p>
+        
+        <div id="gateError" style="color:var(--danger); font-size: 0.9rem; margin-bottom: 15px; font-weight: 700; display: none;"></div>
+        
+        <input type="text" id="gateName" class="auth-input" placeholder="Full Name" style="display:none;">
+        <input type="email" id="gateEmail" class="auth-input" placeholder="Email Address">
+        <input type="password" id="gatePass" class="auth-input" placeholder="Password">
+        
+        <button id="gateBtn" class="modal-btn" onclick="processGateAuth()">Log In</button>
+        
+        <p style="margin-top: 20px; font-size: 0.95rem; color: var(--text-muted); cursor: pointer;" onclick="toggleGateMode()">
+            Don't have an account? <span id="gateSwitchText" style="color:var(--primary); font-weight: 800;">Create one</span>
+        </p>
+    </div>
+</div>
+
 <header>
   <h2><i class="fas fa-code"></i> CodeViz</h2>
   <div class="header-right" style="display:flex; align-items:center; gap:1rem;">
@@ -499,12 +539,65 @@ function openModal(id) {
     document.getElementById("dropdownMenu").classList.remove("show"); 
 }
 function closeModal(id) { document.getElementById(id).style.display = "none"; }
+
+// --- AUTHENTICATION LOGIC ---
 const AUTH_KEY = 'codeviz_user';
+let isGateLoginMode = true;
+
+// New function to toggle the front gate mode
+function toggleGateMode() {
+    isGateLoginMode = !isGateLoginMode;
+    document.getElementById('gateName').style.display = isGateLoginMode ? 'none' : 'block';
+    document.getElementById('gateBtn').innerText = isGateLoginMode ? 'Log In' : 'Sign Up';
+    document.getElementById('gateSubtitle').innerText = isGateLoginMode ? 'Please log in to continue' : 'Create a new account';
+    document.getElementById('gateSwitchText').innerText = isGateLoginMode ? 'Create one' : 'Log in';
+    document.getElementById('gateSwitchText').parentElement.childNodes[0].nodeValue = isGateLoginMode ? "Don't have an account? " : "Already have an account? ";
+    document.getElementById('gateError').style.display = 'none';
+}
+
+// New function to process the front gate
+function processGateAuth() {
+    const name = document.getElementById('gateName').value;
+    const email = document.getElementById('gateEmail').value;
+    const pass = document.getElementById('gatePass').value;
+    const errorDiv = document.getElementById('gateError');
+    
+    if(isGateLoginMode) {
+        const stored = localStorage.getItem(AUTH_KEY);
+        if(stored) {
+            const user = JSON.parse(stored);
+            if(user.email === email && user.pass === pass) {
+                user.isLoggedIn = true;
+                localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+                checkAuth(); // This hides the overlay!
+            } else {
+                errorDiv.innerText = "Incorrect email or password.";
+                errorDiv.style.display = "block";
+            }
+        } else {
+            errorDiv.innerText = "No account found. Please create one.";
+            errorDiv.style.display = "block";
+        }
+    } else {
+        if(!email || !pass || !name) {
+            errorDiv.innerText = "Please fill all fields.";
+            errorDiv.style.display = "block";
+            return;
+        }
+        const user = { name, email, pass, isLoggedIn: true };
+        localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+        checkAuth(); // This hides the overlay!
+    }
+}
+
+// Updated existing checkAuth function
 function checkAuth() {
     const stored = localStorage.getItem(AUTH_KEY);
     const guestMenu = document.getElementById('guestMenu');
     const userMenu = document.getElementById('userMenu');
     const welcomeMsg = document.getElementById('welcomeMsg');
+    const authOverlay = document.getElementById('authOverlay'); 
+    
     if (stored) {
         const user = JSON.parse(stored);
         if (user.isLoggedIn) {
@@ -512,13 +605,16 @@ function checkAuth() {
             userMenu.style.display = 'block';
             welcomeMsg.style.display = 'inline-block';
             welcomeMsg.innerText = `Hi, ${user.name} 👋`;
+            if(authOverlay) authOverlay.style.display = 'none'; // Hides gate
             return;
         }
     }
     guestMenu.style.display = 'block';
     userMenu.style.display = 'none';
     welcomeMsg.style.display = 'none';
+    if(authOverlay) authOverlay.style.display = 'flex'; // Shows gate if logged out
 }
+
 document.getElementById('registerForm').onsubmit = (e) => { 
     e.preventDefault(); 
     const name = document.getElementById('regName').value;
