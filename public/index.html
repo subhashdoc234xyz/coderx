@@ -266,7 +266,8 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     background-size: 100% 4px; display: flex; flex-direction: column;
 }
 #programOutput {
-    color: #e2e8f0; white-space: pre-wrap; word-wrap: break-word; flex-grow: 1;
+    color: #ffffff; /* FIXED: Now explicitly bright white */
+    white-space: pre-wrap; word-wrap: break-word; flex-grow: 1;
 }
 #inlineInputWrapper {
     display: none; align-items: center; margin-top: 5px;
@@ -436,7 +437,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
   <section class="section full-width" id="outputSection">
     <h2 class="section-title"><i class="fas fa-desktop"></i> Program Result</h2>
     <div id="outputContainer">
-        <span id="programOutput" style="color:#666;">Waiting for output...</span>
+        <span id="programOutput">Waiting for output...</span>
         <div id="inlineInputWrapper">
             <span>Input ></span>
             <input type="text" id="inlineTerminalInput" autocomplete="off" spellcheck="false">
@@ -1034,7 +1035,10 @@ function renderVariables(vars) {
 }
 document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('animationCanvas').innerHTML = '<p style="color:#64748b;text-align:center;margin-top:50px;">Waiting...</p>';
-    document.getElementById('programOutput').innerHTML = '<span style="color:#666;">Waiting for output...</span>';
+    
+    // FIXED: Correctly resetting the text without adding inline styles back
+    document.getElementById('programOutput').innerText = 'Waiting for output...';
+    
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> System Ready</div>';
     document.getElementById('flowDiagram').innerHTML = '<p style="color:#64748b;">Click "Visualize" to generate diagram...</p>';
     document.getElementById('visualizeBtn').disabled = false;
