@@ -1,23 +1,19 @@
 import java.util.Scanner;
 
-class Main {
+class IntegerInputPrinter {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] numbers = new int[10];
 
-        System.out.println("Enter 10 integers:");
-
-        // Read 10 integers
+        // Loop through each integer input
         for (int i = 0; i < 10; i++) {
-            numbers[i] = scanner.nextInt();
+            System.out.print("Enter an integer: ");
+            int number = scanner.nextInt();
+
+            // Print the integer
+            System.out.println(number);
         }
 
-        // Print the integers
-        System.out.println("You entered:");
-        for (int i = 0; i < 10; i++) {
-            System.out.println(numbers[i]);
-        }
-
+        // Close the scanner to release resources
         scanner.close();
     }
 }
