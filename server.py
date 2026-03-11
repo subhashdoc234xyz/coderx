@@ -6,7 +6,7 @@ import json
 app = Flask(__name__)
 CORS(app) 
 
-# Switched to Gemini Flash (Extremely fast, great for coding)
+# Using the latest fast model
 TARGET_MODEL = 'gemini-2.5-flash'
 
 # --- API KEY ROTATION SETUP ---
@@ -17,9 +17,7 @@ API_KEYS = [
     "AIzaSyDeEJYlbh6qcHLeKZ3P3p57y2BgIc6qMLc",
     "AIzaSyC900lqXBqu7ZM2gLahPsHDSgQ9bQSguFc",
     "AIzaSyDX6FqGwXOSFGaAoUP9QnGQJdP1EK-zhbY",
-    "AIzaSyASV-33_AhUpnZzJro0z5dj0Dy_nQAUONk",
-    
-    # ... add all 20 of your keys here
+    # ... add all your keys here
 ]
 
 # Global tracker for which key we are currently using
@@ -41,11 +39,11 @@ TRACE_PROMPT = """
 You are the backend execution trace engine for 'CodeViz'.
 Simulate the execution of the code step-by-step and output a valid JSON array.
 RULES:
-1. Output ONLY pure, valid JSON. NO markdown formatting.
-2. Track variables in 'memory_state'.
-3. ACCURACY: Your trace MUST perfectly match the program output provided.
-4. STUDENT-FRIENDLY VISUALS: Do NOT show the final invisible increment of a loop counter. 
-5. VARIABLE SCOPE: Remove variables from 'memory_state' once they go out of scope.
+1. Track variables in 'memory_state'.
+2. ACCURACY: Your trace MUST perfectly match the program output provided.
+3. STUDENT-FRIENDLY VISUALS: Do NOT show the final invisible increment of a loop counter. 
+4. VARIABLE SCOPE: Remove variables from 'memory_state' once they go out of scope.
+5. COMPRESSION: If a loop repeats more than 3 times, trace the first 2 iterations, skip the middle, and trace the final iteration to save space.
 Schema: [{"step": 1, "action": "highlight", "line": 1, "code_text": "code", "explanation": "explain", "memory_state": {"var": 1}}]
 """
 
@@ -60,37 +58,29 @@ def chat():
     def generate():
         global CURRENT_KEY_INDEX
         
-        # Try up to the total number of keys we have
         for _ in range(len(API_KEYS)):
             try:
-                # Configure Gemini with the current key
                 genai.configure(api_key=API_KEYS[CURRENT_KEY_INDEX])
                 model = genai.GenerativeModel(TARGET_MODEL)
                 
-                # Combine system prompt and user message
                 full_prompt = f"System Instructions:\n{CHAT_PROMPT}\n\nUser Request:\n{user_message}"
-                
                 stream = model.generate_content(full_prompt, stream=True)
                 
                 for chunk in stream:
                     if chunk.text:
                         yield chunk.text
-                
-                return  # If successful, exit the generator completely
+                return 
                 
             except Exception as e:
                 error_msg = str(e).lower()
-                # Check for rate limit / quota exhausted errors (429)
                 if "429" in error_msg or "exhausted" in error_msg or "quota" in error_msg:
                     print(f"⚠️ Key {CURRENT_KEY_INDEX + 1} exhausted. Switching to next key...")
                     CURRENT_KEY_INDEX = (CURRENT_KEY_INDEX + 1) % len(API_KEYS)
-                    continue  # Try the next key in the loop
+                    continue 
                 else:
-                    # If it's a different kind of error, show it to the user
                     yield f"\n[System Error]: {str(e)}"
                     return
         
-        # If the loop finishes, all keys are dead
         yield "\n[System Error]: All API keys have reached their free tier limits!"
 
     return Response(generate(), mimetype='text/plain')
@@ -111,35 +101,36 @@ def generate_trace():
         if user_inputs: prompt_message += f"\nINPUTS: {user_inputs}"
         if program_output: prompt_message += f"\nRESULT: {program_output}"
 
-    # Try up to the total number of keys we have
     for _ in range(len(API_KEYS)):
         try:
-            # Configure Gemini with the current key
             genai.configure(api_key=API_KEYS[CURRENT_KEY_INDEX])
-            model = genai.GenerativeModel(TARGET_MODEL)
+            
+            # FIXED: We now force Gemini to return strict JSON formatting
+            model = genai.GenerativeModel(
+                model_name=TARGET_MODEL,
+                generation_config={"response_mime_type": "application/json"}
+            )
             
             response = model.generate_content(prompt_message)
             raw_output = response.text
             
-            clean_output = raw_output.replace("```json", "").replace("```", "").strip()
-
             try:
-                return jsonify(json.loads(clean_output)), 200
+                # Load the guaranteed JSON string
+                return jsonify(json.loads(raw_output)), 200
             except json.JSONDecodeError:
-                # Fallback for models that might fail JSON formatting
                 return jsonify([{"step": 1, "line": 1, "explanation": "Logic trace failed to format.", "memory_state": {}}]), 200
 
         except Exception as e:
             error_msg = str(e).lower()
-            # Check for rate limit / quota exhausted errors (429)
             if "429" in error_msg or "exhausted" in error_msg or "quota" in error_msg:
-                print(f"⚠️ Key {CURRENT_KEY_INDEX + 1} exhausted. Switching to next key...")
+                print(f"⚠️ Key {CURRENT_KEY_INDEX + 1} exhausted for trace. Switching to next key...")
                 CURRENT_KEY_INDEX = (CURRENT_KEY_INDEX + 1) % len(API_KEYS)
-                continue  # Try the next key in the loop
+                continue 
             else:
+                # Print exact error to the terminal so we can see what went wrong
+                print(f"❌ Backend Trace Error: {str(e)}") 
                 return jsonify({"error": str(e)}), 500
 
-    # If the loop finishes, all keys are dead
     return jsonify({"error": "All API keys have reached their free tier limits!"}), 500
 
 
