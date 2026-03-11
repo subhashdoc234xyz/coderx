@@ -1,15 +1,16 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 int main() {
-    int a, b;
-    char op;
-    printf("Enter two numbers: ");
-    scanf("%d %d", &a, &b);
-    printf("Enter operator: ");
-    scanf(" %c", &op);
-    switch(op) {
-        case '+': printf("%d", a+b); break;
-        case '-': printf("%d", a-b); break;
-        default: printf("Invalid");
+    cout << "Enter your name: ";
+    string name;
+    cin >> name;
+    cout << "Enter your age: ";
+    int age;
+    cin >> age;
+    if (age >= 18) {
+        cout << "You are old enough to vote." << endl;
+    } else {
+        cout << "Sorry, you are not old enough to vote." << endl;
     }
     return 0;
 }
