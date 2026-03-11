@@ -17,32 +17,21 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; }
 
 :root {
-  /* Core Colors */
-  --primary: #0ea5e9;        /* Vivid Sky Blue */
+  --primary: #0ea5e9;        
   --primary-glow: rgba(14, 165, 233, 0.4);
   --primary-dark: #0284c7;
-  
-  /* Backgrounds */
   --bg-body: #f0f9ff;
   --bg-glass: rgba(255, 255, 255, 0.85);
   --bg-glass-border: rgba(255, 255, 255, 0.6);
-  
-  /* Obsidian/Dark Theme */
   --obsidian: #0f172a;
   --obsidian-surface: #1e293b;
   --terminal-bg: #09090b;
-  
-  /* Text */
   --text-main: #1e293b;
   --text-muted: #64748b;
   --text-light: #f8fafc;
-  
-  /* States */
   --success: #10b981; 
   --warning: #f59e0b; 
   --danger: #ef4444;
-  
-  /* Effects */
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
   --shadow-neon: 0 0 15px var(--primary-glow);
@@ -50,7 +39,6 @@
   --glass-filter: blur(12px) saturate(180%);
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -69,7 +57,6 @@ body {
     overflow-x: hidden; 
 }
 
-/* --- INTRO OVERLAY --- */
 #introOverlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(255,255,255,0.95); 
@@ -87,7 +74,6 @@ body {
     text-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
 }
 
-/* --- Header --- */
 header {
   background: rgba(255, 255, 255, 0.7);
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -122,7 +108,6 @@ nav a::after {
 }
 nav a:hover::after { width: 100%; }
 
-/* --- Dropdown --- */
 .menu-container { position: relative; display: inline-block; }
 .dropdown-content {
   display: none; 
@@ -145,7 +130,6 @@ nav a:hover::after { width: 100%; }
 .show { display: block; animation: menuPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); } 
 @keyframes menuPop { from { opacity:0; transform:scale(0.9) translateY(-10px); } to { opacity:1; transform:scale(1) translateY(0); } }
 
-/* --- Layout --- */
 .container { 
     max-width: 1440px; margin: 3rem auto; padding: 0 2rem; 
     display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; 
@@ -179,9 +163,6 @@ nav a:hover::after { width: 100%; }
     box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
 }
 
-/* =========================================
-   METALLIC BLACK EDITOR
-   ========================================= */
 .concept-selector {
   width: 100%; padding: 14px 20px; margin-bottom: 0; border-radius: 14px;
   border: 2px solid #e2e8f0; 
@@ -206,9 +187,6 @@ textarea {
   border: none; outline: none; resize: none; position: relative; z-index: 5;
 }
 
-/* =========================================
-   CONTROLS & BUTTONS
-   ========================================= */
 .controls { margin-top: 2rem; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
 
 .btn { 
@@ -240,15 +218,12 @@ textarea {
 }
 input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary); height: 6px; background: #e2e8f0; border-radius: 5px; outline: none; }
 
-/* --- Visualization Canvas --- */
 #animationCanvas { background: #ffffff; border-radius: 20px; padding: 25px; min-height: 500px; max-height: 600px; overflow-y: auto; border: 1px solid #e2e8f0; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03); }
 .code-line { padding: 10px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; transition: all 0.2s; margin-bottom: 6px; color: #64748b; font-size: 0.95rem; border-left: 4px solid transparent; }
 .code-line.active { background: #f0f9ff; border-left: 4px solid var(--primary); color: var(--primary-dark); font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1); }
 
-/* --- Flow Diagram --- */
 #flowDiagram { min-height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden; background: white; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: inset 0 0 20px rgba(0,0,0,0.02); }
 
-/* --- Output Areas --- */
 .output-console { 
     background: #09090b; color: #34d399; padding: 30px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; 
     min-height: 160px; max-height: 300px; overflow-y: auto; border: 1px solid #333;
@@ -257,7 +232,6 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 .output-console::before { content: "TERMINAL"; position: absolute; top: 10px; right: 20px; font-size: 0.7rem; color: #333; font-weight: 800; letter-spacing: 2px; }
 .output-line { border-bottom: 1px solid #18181b; padding: 6px 0; text-shadow: 0 0 5px rgba(52, 211, 153, 0.4); }
 
-/* UPDATED REAL INLINE TERMINAL DESIGN */
 #outputContainer {
     background: #000; padding: 30px; border-radius: 20px; border: 1px solid #333; 
     min-height: 140px; font-family:'JetBrains Mono', monospace; font-size: 1.2rem; 
@@ -266,7 +240,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     background-size: 100% 4px; display: flex; flex-direction: column;
 }
 #programOutput {
-    color: #ffffff; /* FIXED: Now explicitly bright white */
+    color: #ffffff;
     white-space: pre-wrap; word-wrap: break-word; flex-grow: 1;
 }
 #inlineInputWrapper {
@@ -284,13 +258,11 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     border-bottom: 1px solid #10b981;
 }
 
-/* --- Variables --- */
 #variablesList { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .var-badge { background: white; color: var(--text-main); border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; animation: popIn 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 8px; }
 .var-badge span { background: var(--primary-light); color: var(--primary-dark); padding: 2px 8px; border-radius: 4px; }
 @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* --- Modals --- */
 .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
 .modal-content { background: rgba(255,255,255,0.95); color: var(--text-main); padding: 3rem; width: 90%; max-width: 450px; border-radius: 30px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: slideUpModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
 @keyframes slideUpModal { from { transform: translate(-50%, -40%); opacity: 0; } to { transform: translate(-50%, -50%); opacity: 1; } }
@@ -302,13 +274,9 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 .modal-btn { width: 100%; padding: 14px; background: var(--obsidian); color: white; border: none; border-radius: 14px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
 .modal-btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
 
-/* --- Stop Button --- */
 .stop-button { position: fixed; bottom: 30px; right: 110px; width: 65px; height: 65px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.2), 0 15px 30px rgba(239, 68, 68, 0.4); display: none; align-items: center; justify-content: center; z-index: 1000; transition: transform 0.2s; background: var(--danger); color: white; font-size: 1.4rem; }
 .stop-button:hover { transform: scale(1.1) rotate(90deg); }
 
-/* =========================================
-   AI AGENT BUTTON 
-   ========================================= */
 .chat-bubble { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: #000; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 15px 40px rgba(0,0,0,0.4); z-index: 1000; font-size: 32px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); color: white; animation: heartbeat 2s infinite; }
 @keyframes heartbeat { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); } 50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
 .chat-bubble:hover { animation: none; transform: scale(1.1); border-color: var(--primary); color: var(--primary); box-shadow: 0 0 30px var(--primary-glow); }
@@ -782,7 +750,7 @@ document.getElementById('runBtn').addEventListener('click', () => {
 });
 
 // ----------------------------------------------------
-// NEW BUTTON 2: VISUALIZE
+// NEW BUTTON 2: AI-POWERED VISUALIZE
 // ----------------------------------------------------
 document.getElementById('visualizeBtn').addEventListener('click', async () => {
     let code = editor.value.trim();
@@ -801,7 +769,7 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
 
     document.getElementById('visualize').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // 1. Generate Logic Diagram
+    // 1. Generate Logic Diagram (Local logic)
     const diagramCode = generateDynamicDiagram(code);
     try {
         const uniqueId = 'mermaidGraph_' + Date.now();
@@ -812,34 +780,61 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
         document.getElementById('flowDiagram').innerHTML = '<p style="color:red;">Diagram failed to generate.</p>';
     }
 
-    // 2. Local Step-By-Step Simulation
-    const lines = code.split('\n');
+    // 2. TRUE AI TRACE: Defeating the Black Box Effect!
     const canvas = document.getElementById('animationCanvas');
-    canvas.innerHTML = '';
-    lines.forEach((line, i) => {
-        const div = document.createElement('div');
-        div.className = 'code-line';
-        div.id = `line-${i}`;
-        div.innerText = line || ' ';
-        canvas.appendChild(div);
-    });
+    canvas.innerHTML = '<p style="color:#0ea5e9;text-align:center;margin-top:50px;"><i class="fas fa-brain fa-spin"></i> AI is analyzing code and mapping terminal output...</p>';
 
-    const sequence = getVisualSequence(lines);
-    const currentVars = {}; 
-    for (const lineIndex of sequence) {
-        if (shouldStop || !isRunning) break;
-        
-        document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
-        const el = document.getElementById(`line-${lineIndex}`);
-        if (el) {
-            el.classList.add('active');
-            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Grab the ACTUAL output the user typed into the terminal to send to the AI
+    let outputText = document.getElementById('programOutput').innerText;
+    if (outputText.includes('Waiting for output...')) outputText = '';
+
+    try {
+        // Send Code + User's Real Output to your Gemini backend
+        const response = await fetch('http://localhost:5001/generate_trace', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: code, output: outputText })
+        });
+
+        if (!response.ok) throw new Error("AI Trace Failed");
+        const traceData = await response.json(); // This gets the pure JSON timeline from Gemini!
+
+        // Setup the code viewer lines on the UI
+        const lines = code.split('\n');
+        canvas.innerHTML = '';
+        lines.forEach((line, i) => {
+            const div = document.createElement('div');
+            div.className = 'code-line';
+            div.id = `line-${i}`;
+            div.innerText = line || ' ';
+            canvas.appendChild(div);
+        });
+
+        // Play the AI's perfect timeline frame-by-frame
+        for (const step of traceData) {
+            if (shouldStop || !isRunning) break;
+
+            document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
+            
+            // AI schemas usually return line 1 as index 1, HTML uses 0-based IDs
+            const lineNum = (step.line || 1) - 1;
+            const el = document.getElementById(`line-${lineNum}`);
+            if (el) {
+                el.classList.add('active');
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Update Memory with the AI's perfect analysis
+            if (step.memory_state) {
+                renderVariables(step.memory_state);
+            }
+
+            await new Promise(r => setTimeout(r, animationSpeed));
         }
-        if (lines[lineIndex]) {
-            const changed = updateMemorySimulation(lines[lineIndex], currentVars, []);
-            if (changed) renderVariables(currentVars);
-        }
-        await new Promise(r => setTimeout(r, animationSpeed / 3));
+
+    } catch (err) {
+        console.error(err);
+        canvas.innerHTML = '<p style="color:red;text-align:center;margin-top:50px;">Error: AI could not map the trace. Did you run the program first to generate terminal output?</p>';
     }
 
     if (isRunning) { 
@@ -850,6 +845,7 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     }
 });
 
+// Mermaid Logic Diagram Generator (Kept Local)
 mermaid.initialize({ startOnLoad: false, theme: 'default' });
 function generateDynamicDiagram(code) {
   const lines = code.split('\n').filter(l => {
@@ -891,180 +887,6 @@ function generateDynamicDiagram(code) {
   graph += `    ${prev} --> End([End])`;
   return graph;
 }
-function getVisualSequence(lines) {
-    const sequence = [];
-    let i = 0;
-    while (i < lines.length) {
-        const line = lines[i];
-        const trim = line.trim();
-        sequence.push(i); 
-          
-        if (trim.startsWith('for') || trim.startsWith('while') || trim.startsWith('do')) {
-            let start = i + 1;
-            let end = i;
-            let foundBody = false;
-            if (trim.includes('{')) {
-                let brackets = 1;
-                for (let j = i + 1; j < lines.length; j++) {
-                    if (lines[j].includes('{')) brackets++;
-                    if (lines[j].includes('}')) brackets--;
-                    if (brackets === 0) {
-                        end = j;
-                        foundBody = true;
-                        break;
-                    }
-                }
-            } else if (trim.endsWith(':')) {
-                const startIndent = line.search(/\S/);
-                for (let j = i + 1; j < lines.length; j++) {
-                    const nextLine = lines[j];
-                    if (nextLine.trim() === '') continue; 
-                    const nextIndent = nextLine.search(/\S/);
-                    if (nextIndent > -1 && nextIndent <= startIndent) {
-                        end = j - 1; 
-                        foundBody = true;
-                        break;
-                    }
-                    end = j; 
-                }
-            } else if (!line.includes(';')) {
-                end = i + 1; 
-                foundBody = true;
-            }
-            if (foundBody && end >= start) {
-                const REPEATS = 4; 
-                for (let r = 0; r < REPEATS; r++) {
-                    for (let k = start; k <= end; k++) {
-                        sequence.push(k);
-                    }
-                    sequence.push(i); 
-                }
-                i = end; 
-            }
-        }
-        i++;
-    }
-    return sequence;
-}
-
-// ==========================================
-// UPDATED updateMemorySimulation FUNCTION
-// ==========================================
-function updateMemorySimulation(line, currentVars, inputQueue) {
-    let trim = line.trim().replace(/;$/, ''); 
-    if (!trim || trim.startsWith('//') || trim.startsWith('#') || trim.startsWith('return')) return false;
-
-    // 1. Handle 'for' loop initialization and counting (e.g., for (int i = 0; i < 10; i++))
-    const forMatch = trim.match(/for\s*\(\s*(?:int|float|double|var|let)?\s*([a-zA-Z_]\w*)\s*=\s*([0-9]+)/);
-    if (forMatch) {
-        const varName = forMatch[1];
-        const initVal = parseInt(forMatch[2]);
-        
-        // If it's the first time seeing the loop, initialize. Otherwise, increment!
-        if (currentVars[varName] === undefined) {
-            currentVars[varName] = initVal; 
-        } else {
-            if (trim.includes(varName + '++')) currentVars[varName]++;
-            else if (trim.includes(varName + '--')) currentVars[varName]--;
-        }
-        return true;
-    }
-
-    // 2. Handle C++ and C inputs
-    if (trim.includes('cin >>')) {
-        const parts = trim.split('>>');
-        for (let i = 1; i < parts.length; i++) {
-            let varName = parts[i].trim();
-             if (inputQueue && inputQueue.length > 0) currentVars[varName] = inputQueue.shift(); 
-        }
-        return true;
-    }
-    if (trim.startsWith('scanf')) {
-        const match = trim.match(/&([a-zA-Z_]\w*)/g);
-        if (match) {
-            match.forEach(m => {
-                let varName = m.replace('&', '');
-                if (inputQueue && inputQueue.length > 0) currentVars[varName] = inputQueue.shift(); 
-            });
-            return true;
-        }
-    }
-
-    // 3. Handle Assignments INCLUDING Arrays (e.g., x = 5, or numbers[i] = scanner.nextInt())
-    // Added (?:\[.*?\])? to specifically allow array brackets in the memory tracker
-    const assignMatch = trim.match(/^(?:int|float|double|char|string|boolean|long|auto|var|let|const)?\s*([a-zA-Z_]\w*(?:\[.*?\])?)\s*=\s*(.+)$/);
-    if (assignMatch) {
-        let rawName = assignMatch[1];
-        let expr = assignMatch[2];
-
-        // If it's an array like numbers[i], translate the 'i' to its actual current number
-        let name = rawName;
-        const arrayMatch = rawName.match(/([a-zA-Z_]\w*)\[([a-zA-Z_]\w*)\]/);
-        if (arrayMatch && currentVars[arrayMatch[2]] !== undefined) {
-            name = `${arrayMatch[1]}[${currentVars[arrayMatch[2]]}]`; // e.g., numbers[0]
-        }
-
-        // Handle Java Scanner or Python Input
-        if (expr.match(/input\s*\(/) || expr.includes('.next')) {
-            if (inputQueue && inputQueue.length > 0) {
-                currentVars[name] = inputQueue.shift(); 
-            } else {
-                currentVars[name] = "? (Scanned Input)"; // Fallback so it still shows in memory!
-            }
-            return true;
-        }
-
-        // Standard math evaluation
-        try {
-            let evalExpr = expr;
-            let canEval = true;
-            const tokens = expr.match(/[a-zA-Z_]\w*/g) || [];
-            for (const token of tokens) {
-                 if (currentVars[token] !== undefined) {
-                     let val = currentVars[token];
-                     if (!isNaN(parseFloat(val))) {
-                         evalExpr = evalExpr.replace(new RegExp(`\\b${token}\\b`, 'g'), val);
-                     } else {
-                         canEval = false; 
-                     }
-                 } else if (!isNaN(token) || token === 'true' || token === 'false') {
-                 } else if (token !== 'new' && token !== 'int') { // Ignore java keywords
-                     canEval = false; 
-                 }
-            }
-            if (canEval) {
-                let result = eval(evalExpr);
-                if (typeof result === 'number' && !Number.isInteger(result)) {
-                    result = parseFloat(result.toFixed(4));
-                }
-                currentVars[name] = result;
-            } else {
-                currentVars[name] = expr; 
-            }
-        } catch (e) {
-            currentVars[name] = expr;
-        }
-        return true;
-    }
-
-    // 4. Handle standalone increments (e.g. i++)
-    const incMatch = trim.match(/([a-zA-Z_]\w*)\s*(\+\+|--)/);
-    if (incMatch) {
-        const name = incMatch[1];
-        const op = incMatch[2];
-        if (currentVars[name] !== undefined) {
-            let val = parseFloat(currentVars[name]);
-            if (!isNaN(val)) {
-                if (op === '++') val++;
-                else val--;
-                currentVars[name] = val;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-// ==========================================
 
 function renderVariables(vars) {
     const list = document.getElementById('variablesList');
@@ -1076,12 +898,10 @@ function renderVariables(vars) {
         list.appendChild(badge);
     }
 }
+
 document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('animationCanvas').innerHTML = '<p style="color:#64748b;text-align:center;margin-top:50px;">Waiting...</p>';
-    
-    // FIXED: Correctly resetting the text without adding inline styles back
     document.getElementById('programOutput').innerText = 'Waiting for output...';
-    
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> System Ready</div>';
     document.getElementById('flowDiagram').innerHTML = '<p style="color:#64748b;">Click "Visualize" to generate diagram...</p>';
     document.getElementById('visualizeBtn').disabled = false;
@@ -1093,6 +913,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('explanationSection').style.display = 'none';
     isSocketRunning = false;
 });
+
 document.getElementById('explainBtn').addEventListener('click', async () => {
     const code = editor.value.trim();
     if (!code) {
