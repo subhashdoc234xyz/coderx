@@ -1,13 +1,29 @@
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
-import ollama
+import google.generativeai as genai
 import json
 
 app = Flask(__name__)
 CORS(app) 
 
-# Switched to the Ollama Cloud model
-TARGET_MODEL = 'gpt-oss:20b-cloud'
+# Switched to Gemini Flash (Extremely fast, great for coding)
+TARGET_MODEL = 'gemini-2.5-flash'
+
+# --- API KEY ROTATION SETUP ---
+API_KEYS = [
+    "AIzaSyDbooRheCtvEeiEBY9a0UjzUVjX5c9mtFQ",
+    "AIzaSyDgi5GsXqtP4fKtAq_p6Noaf_40_RkPdlY",
+    "AIzaSyBw9K5SesHnoQzIp9ACEMNUPo8383vF37M",
+    "AIzaSyDeEJYlbh6qcHLeKZ3P3p57y2BgIc6qMLc",
+    "AIzaSyC900lqXBqu7ZM2gLahPsHDSgQ9bQSguFc",
+    "AIzaSyDX6FqGwXOSFGaAoUP9QnGQJdP1EK-zhbY",
+    "AIzaSyASV-33_AhUpnZzJro0z5dj0Dy_nQAUONk",
+    
+    # ... add all 20 of your keys here
+]
+
+# Global tracker for which key we are currently using
+CURRENT_KEY_INDEX = 0
 
 # --- 1. PROMPT FOR THE CHAT BUBBLE ---
 CHAT_PROMPT = """
@@ -42,58 +58,90 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
 
     def generate():
-        try:
-            stream = ollama.chat(
-                model=TARGET_MODEL, 
-                messages=[
-                    {'role': 'system', 'content': CHAT_PROMPT},
-                    {'role': 'user', 'content': user_message},
-                ],
-                stream=True,
-            )
-            for chunk in stream:
-                content = chunk['message']['content']
-                if content:
-                    yield content
-        except Exception as e:
-            yield f"\n[System Error]: {str(e)}"
+        global CURRENT_KEY_INDEX
+        
+        # Try up to the total number of keys we have
+        for _ in range(len(API_KEYS)):
+            try:
+                # Configure Gemini with the current key
+                genai.configure(api_key=API_KEYS[CURRENT_KEY_INDEX])
+                model = genai.GenerativeModel(TARGET_MODEL)
+                
+                # Combine system prompt and user message
+                full_prompt = f"System Instructions:\n{CHAT_PROMPT}\n\nUser Request:\n{user_message}"
+                
+                stream = model.generate_content(full_prompt, stream=True)
+                
+                for chunk in stream:
+                    if chunk.text:
+                        yield chunk.text
+                
+                return  # If successful, exit the generator completely
+                
+            except Exception as e:
+                error_msg = str(e).lower()
+                # Check for rate limit / quota exhausted errors (429)
+                if "429" in error_msg or "exhausted" in error_msg or "quota" in error_msg:
+                    print(f"⚠️ Key {CURRENT_KEY_INDEX + 1} exhausted. Switching to next key...")
+                    CURRENT_KEY_INDEX = (CURRENT_KEY_INDEX + 1) % len(API_KEYS)
+                    continue  # Try the next key in the loop
+                else:
+                    # If it's a different kind of error, show it to the user
+                    yield f"\n[System Error]: {str(e)}"
+                    return
+        
+        # If the loop finishes, all keys are dead
+        yield "\n[System Error]: All API keys have reached their free tier limits!"
 
     return Response(generate(), mimetype='text/plain')
 
+
 @app.route('/generate_trace', methods=['POST'])
 def generate_trace():
+    global CURRENT_KEY_INDEX
+    
     data = request.json
     user_code = data.get('code', '')
     user_inputs = data.get('inputs', '') 
     program_output = data.get('output', '')
     
-    prompt_message = f"Generate trace for the following code:\n{user_code}"
+    prompt_message = f"System Instructions:\n{TRACE_PROMPT}\n\nGenerate trace for the following code:\n{user_code}"
     if user_inputs or program_output:
         prompt_message += "\n\n--- EXECUTION CONTEXT ---"
         if user_inputs: prompt_message += f"\nINPUTS: {user_inputs}"
         if program_output: prompt_message += f"\nRESULT: {program_output}"
 
-    try:
-        response = ollama.chat(
-            model=TARGET_MODEL, 
-            messages=[
-                {'role': 'system', 'content': TRACE_PROMPT},
-                {'role': 'user', 'content': prompt_message}, 
-            ],
-            stream=False, 
-        )
-        
-        raw_output = response['message']['content']
-        clean_output = raw_output.replace("```json", "").replace("```", "").strip()
-
+    # Try up to the total number of keys we have
+    for _ in range(len(API_KEYS)):
         try:
-            return jsonify(json.loads(clean_output)), 200
-        except json.JSONDecodeError:
-            # Fallback for small models that might fail JSON formatting
-            return jsonify([{"step": 1, "line": 1, "explanation": "Logic trace failed to format.", "memory_state": {}}]), 200
+            # Configure Gemini with the current key
+            genai.configure(api_key=API_KEYS[CURRENT_KEY_INDEX])
+            model = genai.GenerativeModel(TARGET_MODEL)
+            
+            response = model.generate_content(prompt_message)
+            raw_output = response.text
+            
+            clean_output = raw_output.replace("```json", "").replace("```", "").strip()
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+            try:
+                return jsonify(json.loads(clean_output)), 200
+            except json.JSONDecodeError:
+                # Fallback for models that might fail JSON formatting
+                return jsonify([{"step": 1, "line": 1, "explanation": "Logic trace failed to format.", "memory_state": {}}]), 200
+
+        except Exception as e:
+            error_msg = str(e).lower()
+            # Check for rate limit / quota exhausted errors (429)
+            if "429" in error_msg or "exhausted" in error_msg or "quota" in error_msg:
+                print(f"⚠️ Key {CURRENT_KEY_INDEX + 1} exhausted. Switching to next key...")
+                CURRENT_KEY_INDEX = (CURRENT_KEY_INDEX + 1) % len(API_KEYS)
+                continue  # Try the next key in the loop
+            else:
+                return jsonify({"error": str(e)}), 500
+
+    # If the loop finishes, all keys are dead
+    return jsonify({"error": "All API keys have reached their free tier limits!"}), 500
+
 
 if __name__ == '__main__':
     print(f"⚡ Light Agent running with {TARGET_MODEL} on http://localhost:5001")
