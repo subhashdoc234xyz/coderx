@@ -9,9 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <style>
-/* =========================================
-   THEME: NEO-SKY & OBSIDIAN GLASS
-   ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; }
@@ -46,10 +43,6 @@
 
 body { 
     background-color: #e0f2fe;
-    background-image: 
-        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-        radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-        radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
     background: linear-gradient(-45deg, #f0f9ff, #e0f2fe, #bae6fd, #f0f9ff);
     background-size: 100% 100%; 
     color: var(--text-main); 
@@ -95,31 +88,19 @@ nav a {
     color: var(--text-muted); text-decoration: none; font-weight: 700; 
     margin-left: 10px; transition: var(--transition); font-size: 0.95rem; 
     padding: 10px 20px; border-radius: 12px;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
 }
-nav a:hover { 
-    color: var(--primary); 
-    background: rgba(14, 165, 233, 0.1); 
-}
-nav a::after {
-    content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px;
-    background: var(--primary); transition: 0.3s;
-}
+nav a:hover { color: var(--primary); background: rgba(14, 165, 233, 0.1); }
+nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--primary); transition: 0.3s; }
 nav a:hover::after { width: 100%; }
 
 .menu-container { position: relative; display: inline-block; }
 .dropdown-content {
-  display: none; 
-  position: absolute; right: 0; top: 140%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  min-width: 240px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 16px;
-  z-index: 200; overflow: hidden; padding: 8px;
-  transform-origin: top right;
+  display: none; position: absolute; right: 0; top: 140%;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+  min-width: 240px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255,255,255,0.5); border-radius: 16px;
+  z-index: 200; overflow: hidden; padding: 8px; transform-origin: top right;
 }
 .dropdown-content a {
   color: var(--text-main); padding: 14px 20px; text-decoration: none;
@@ -137,15 +118,11 @@ nav a:hover::after { width: 100%; }
 .full-width { grid-column: 1 / -1; }
 
 .section {
-  background: rgba(255, 255, 255, 0.7); 
-  backdrop-filter: blur(10px);
-  border-radius: 24px; 
-  padding: 2.5rem; 
+  background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
+  border-radius: 24px; padding: 2.5rem; 
   box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
   border: 1px solid rgba(255,255,255,0.8);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
+  transition: var(--transition); position: relative; overflow: hidden;
 }
 .section:hover { 
     transform: translateY(-2px); 
@@ -165,11 +142,9 @@ nav a:hover::after { width: 100%; }
 
 .concept-selector {
   width: 100%; padding: 14px 20px; margin-bottom: 0; border-radius: 14px;
-  border: 2px solid #e2e8f0; 
-  background: white; 
+  border: 2px solid #e2e8f0; background: white; 
   font-weight: 700; color: var(--text-main); cursor: pointer;
-  outline: none; transition: var(--transition);
-  font-size: 1rem; appearance: none;
+  outline: none; transition: var(--transition); font-size: 1rem; appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230284c7%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat; background-position: right 1.5rem center; background-size: 0.8rem;
 }
@@ -177,8 +152,10 @@ nav a:hover::after { width: 100%; }
 
 .editor-container {
     position: relative; width: 100%; height: 500px; border-radius: 20px; overflow: hidden;
-    background: #050505; background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%; box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 0 1px #1e293b;
+    background: #050505;
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 0 1px #1e293b;
 }
 
 textarea {
@@ -191,23 +168,17 @@ textarea {
 
 .btn { 
     padding: 14px 28px; border-radius: 14px; border: none; font-weight: 700; 
-    cursor: pointer; color: white; 
-    display: flex; align-items: center; gap: 10px; font-size: 0.95rem;
+    cursor: pointer; color: white; display: flex; align-items: center; gap: 10px; font-size: 0.95rem;
     transition: var(--transition); transform: translateY(0);
-    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
-    position: relative; overflow: hidden;
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); position: relative; overflow: hidden;
 }
-
 .btn-primary { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
 .btn-primary:hover { box-shadow: 0 0 20px var(--primary-glow); }
-
 .btn-visualize { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
 .btn-visualize:hover { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
-
 .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
 .btn-success { background: linear-gradient(135deg, #10b981, #059669); }
 .btn-info { background: linear-gradient(135deg, #0284c7, #0369a1); }
-
 .btn:hover:not(:disabled) { transform: translateY(-3px); }
 .btn:active { transform: translateY(1px); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; background: #94a3b8; box-shadow: none; filter: grayscale(100%); }
@@ -218,9 +189,96 @@ textarea {
 }
 input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary); height: 6px; background: #e2e8f0; border-radius: 5px; outline: none; }
 
-#animationCanvas { background: #ffffff; border-radius: 20px; padding: 25px; min-height: 500px; max-height: 600px; overflow-y: auto; border: 1px solid #e2e8f0; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03); }
-.code-line { padding: 10px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; transition: all 0.2s; margin-bottom: 6px; color: #64748b; font-size: 0.95rem; border-left: 4px solid transparent; }
-.code-line.active { background: #f0f9ff; border-left: 4px solid var(--primary); color: var(--primary-dark); font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1); }
+/* =============================================
+   STEP-BY-STEP EXECUTION PANEL (ENHANCED)
+   ============================================= */
+#animationCanvas { 
+    background: #ffffff; border-radius: 20px; padding: 25px; 
+    min-height: 500px; max-height: 600px; overflow-y: auto; 
+    border: 1px solid #e2e8f0; 
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.03); 
+}
+
+/* Call Stack breadcrumb bar */
+#callStackBar {
+    display: none;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: #475569;
+    font-weight: 700;
+}
+#callStackBar .cs-label {
+    color: #94a3b8;
+    margin-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.72rem;
+}
+#callStackBar .cs-frame {
+    display: inline-block;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 2px 10px;
+    margin: 0 3px;
+    color: var(--primary-dark);
+}
+#callStackBar .cs-arrow {
+    color: #cbd5e1;
+    margin: 0 2px;
+}
+
+/* Step explanation tooltip */
+#stepExplanation {
+    display: none;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border-left: 4px solid var(--primary);
+}
+#stepExplanation .step-num {
+    font-size: 0.72rem;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.code-line { 
+    padding: 10px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; 
+    transition: all 0.2s; margin-bottom: 6px; color: #64748b; font-size: 0.95rem; 
+    border-left: 4px solid transparent; 
+}
+
+/* Action-based highlight colors — the core of defeating the black box */
+.code-line.active          { background: #f0f9ff; border-left: 4px solid var(--primary);   color: var(--primary-dark); font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(14,165,233,0.10); }
+.code-line.active-call     { background: #dbeafe; border-left: 4px solid #3b82f6;           color: #1d4ed8; font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(59,130,246,0.12); }
+.code-line.active-return   { background: #dcfce7; border-left: 4px solid var(--success);    color: #065f46; font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(16,185,129,0.12); }
+.code-line.active-error    { background: #fee2e2; border-left: 4px solid var(--danger);     color: #991b1b; font-weight: 700; transform: translateX(8px); box-shadow: 0 2px 8px rgba(239,68,68,0.12); }
+.code-line.active-skip     { background: #f3f4f6; border-left: 4px solid #9ca3af;           color: #6b7280; font-weight: 600; transform: translateX(8px); font-style: italic; }
+
+/* Skip step pill */
+.skip-pill {
+    display: inline-block;
+    background: #f3f4f6;
+    border: 1px dashed #9ca3af;
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 0.82rem;
+    color: #6b7280;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 8px 0 8px 16px;
+}
 
 #flowDiagram { min-height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden; background: white; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: inset 0 0 20px rgba(0,0,0,0.02); }
 
@@ -239,28 +297,36 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); 
     background-size: 100% 4px; display: flex; flex-direction: column;
 }
-#programOutput {
-    color: #ffffff;
-    white-space: pre-wrap; word-wrap: break-word; flex-grow: 1;
-}
-#inlineInputWrapper {
-    display: none; align-items: center; margin-top: 5px;
-}
-#inlineInputWrapper span {
-    color: #10b981; font-weight: bold; margin-right: 10px; font-size: 1.2rem;
-}
+#programOutput { color: #ffffff; white-space: pre-wrap; word-wrap: break-word; flex-grow: 1; }
+#inlineInputWrapper { display: none; align-items: center; margin-top: 5px; }
+#inlineInputWrapper span { color: #10b981; font-weight: bold; margin-right: 10px; font-size: 1.2rem; }
 #inlineTerminalInput {
     background: transparent; border: none; outline: none; color: #10b981; 
     font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; flex: 1; 
     border-bottom: 1px dashed rgba(16, 185, 129, 0.4);
 }
-#inlineTerminalInput:focus {
-    border-bottom: 1px solid #10b981;
-}
+#inlineTerminalInput:focus { border-bottom: 1px solid #10b981; }
 
+/* Variable badges — now handles objects/arrays */
 #variablesList { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-.var-badge { background: white; color: var(--text-main); border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; animation: popIn 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 8px; }
-.var-badge span { background: var(--primary-light); color: var(--primary-dark); padding: 2px 8px; border-radius: 4px; }
+.var-badge { 
+    background: white; color: var(--text-main); border: 1px solid #e2e8f0; 
+    padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; 
+    animation: popIn 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+    display: flex; align-items: center; gap: 8px; max-width: 360px; overflow: hidden;
+}
+.var-badge .var-value { 
+    color: #2563eb; padding: 2px 8px; border-radius: 4px; 
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    background: #eff6ff;
+}
+/* Object/array values get a different accent */
+.var-badge .var-value.is-complex {
+    color: #7c3aed;
+    background: #f5f3ff;
+    border: 1px solid #ddd6fe;
+}
 @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
@@ -270,9 +336,9 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 .close:hover { color: var(--danger); transform: rotate(90deg); }
 .form-group label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
 .form-group input { width: 100%; padding: 14px; background: #f8fafc; color: var(--text-main); border: 2px solid #e2e8f0; border-radius: 14px; outline: none; transition: 0.3s; }
-.form-group input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-light); }
+.form-group input:focus { border-color: var(--primary); background: white; }
 .modal-btn { width: 100%; padding: 14px; background: var(--obsidian); color: white; border: none; border-radius: 14px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-.modal-btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
+.modal-btn:hover { background: var(--primary); transform: translateY(-2px); }
 
 .stop-button { position: fixed; bottom: 30px; right: 110px; width: 65px; height: 65px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.2), 0 15px 30px rgba(239, 68, 68, 0.4); display: none; align-items: center; justify-content: center; z-index: 1000; transition: transform 0.2s; background: var(--danger); color: white; font-size: 1.4rem; }
 .stop-button:hover { transform: scale(1.1) rotate(90deg); }
@@ -290,7 +356,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
 .message.ai { background: white; border: 1px solid #e2e8f0; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
 .chat-input-area { padding: 20px; background: white; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; }
 .chat-input-area input { flex: 1; padding: 14px; background: #f8fafc; color: var(--text-main); border: 1px solid #e2e8f0; border-radius: 50px; outline: none; transition: 0.3s; }
-.chat-input-area input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-light); }
+.chat-input-area input:focus { border-color: var(--primary); background: white; }
 .chat-input-area button { background: var(--obsidian); border: none; color: white; width: 45px; height: 45px; border-radius: 50%; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 .chat-input-area button:hover { background: var(--primary); transform: rotate(-45deg); }
 .code-wrapper { position: relative; margin: 15px 0; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
@@ -328,6 +394,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     </div>
   </div>
 </header>
+
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('loginModal')">×</span>
@@ -367,11 +434,9 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
         <option value="while_loop">While Loop (Java/C++)</option>
       </select>
     </div>
-    
     <div class="editor-container">
         <textarea id="codeInput" spellcheck="false" placeholder="Type your code here..."></textarea>
     </div>
-
     <div class="controls">
       <button class="btn btn-primary" id="runBtn"><i class="fas fa-play"></i> Run Program</button>
       <button class="btn btn-visualize" id="visualizeBtn"><i class="fas fa-project-diagram"></i> Visualize Diagram</button>
@@ -385,17 +450,34 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
       </div>
     </div>
   </section>
+
   <section class="section full-width" id="explanationSection" style="display:none;">
     <h2 class="section-title"><i class="fas fa-lightbulb"></i> Code Explanation</h2>
     <div id="explanationContent" style="line-height:1.6;"></div>
   </section>
+
   <section class="section" id="visualize">
     <h2 class="section-title"><i class="fas fa-project-diagram"></i> Logic Diagram</h2>
     <div id="flowDiagram"><p style="color:#94a3b8;">Click "Visualize" to generate diagram from code...</p></div>
   </section>
+
   <section class="section">
     <h2 class="section-title"><i class="fas fa-tasks"></i> Step-by-Step Execution</h2>
+
+    <!-- NEW: Call Stack Bar -->
+    <div id="callStackBar">
+        <span class="cs-label">Call Stack</span>
+        <span id="callStackFrames"></span>
+    </div>
+
+    <!-- NEW: Step Explanation Box -->
+    <div id="stepExplanation">
+        <div class="step-num" id="stepNumLabel">Step 1</div>
+        <div id="stepExplanationText"></div>
+    </div>
+
     <div id="animationCanvas"><p style="color:#64748b;text-align:center;margin-top:50px;">Waiting...</p></div>
+
     <div style="margin-top:15px; border-top:1px solid #cbd5e1; padding-top:10px;">
       <h4 style="color:#475569; margin-bottom:10px;">Memory / Variables:</h4>
       <div id="variablesList"></div>
@@ -418,6 +500,7 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
     <div class="output-console" id="outputConsole"><div class="output-line">> System Ready</div></div>
   </section>
 </div>
+
 <footer style="text-align:center; padding:2rem; color:#64748b; font-size:0.9rem;"><p>© 2026 CodeViz - Visual Learning Platform</p></footer>
 <button id="stopBtn" class="stop-button" onclick="stopExecution()"><i class="fas fa-stop"></i></button>
 <div class="chat-bubble" onclick="toggleChat()">⚡</div>
@@ -438,10 +521,10 @@ input[type="range"] { width: 120px; cursor: pointer; accent-color: var(--primary
         <button id="stopChatBtn" onclick="stopChat()" style="display:none;background:var(--danger)">⏹</button>
     </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
-// Enhanced copy function for AI chat code blocks
 window.copyCodeNow = function(btn) {
     const pre = btn.nextElementSibling;
     const code = pre.textContent || pre.innerText;
@@ -452,27 +535,24 @@ window.copyCodeNow = function(btn) {
     }).catch(() => { btn.textContent = 'Error'; setTimeout(() => btn.textContent = 'COPY', 2000); });
 };
 
-// --- Basic UI Helpers ---
 setTimeout(() => {
     const intro = document.getElementById('introOverlay');
     intro.style.opacity = '0';
     setTimeout(() => { intro.style.display = 'none'; }, 1000);
 }, 2000);
+
 function toggleMenu() { document.getElementById("dropdownMenu").classList.toggle("show"); }
 window.onclick = function(event) {
   if (!event.target.matches('.menu-btn') && !event.target.matches('.fa-ellipsis-v')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) { openDropdown.classList.remove('show'); }
+      if (dropdowns[i].classList.contains('show')) { dropdowns[i].classList.remove('show'); }
     }
   }
 }
-function openModal(id) { 
-    document.getElementById(id).style.display = "block"; 
-    document.getElementById("dropdownMenu").classList.remove("show"); 
-}
+function openModal(id) { document.getElementById(id).style.display = "block"; document.getElementById("dropdownMenu").classList.remove("show"); }
 function closeModal(id) { document.getElementById(id).style.display = "none"; }
+
 const AUTH_KEY = 'codeviz_user';
 function checkAuth() {
     const stored = localStorage.getItem(AUTH_KEY);
@@ -482,27 +562,21 @@ function checkAuth() {
     if (stored) {
         const user = JSON.parse(stored);
         if (user.isLoggedIn) {
-            guestMenu.style.display = 'none';
-            userMenu.style.display = 'block';
-            welcomeMsg.style.display = 'inline-block';
-            welcomeMsg.innerText = `Hi, ${user.name} 👋`;
+            guestMenu.style.display = 'none'; userMenu.style.display = 'block';
+            welcomeMsg.style.display = 'inline-block'; welcomeMsg.innerText = `Hi, ${user.name} 👋`;
             return;
         }
     }
-    guestMenu.style.display = 'block';
-    userMenu.style.display = 'none';
-    welcomeMsg.style.display = 'none';
+    guestMenu.style.display = 'block'; userMenu.style.display = 'none'; welcomeMsg.style.display = 'none';
 }
 document.getElementById('registerForm').onsubmit = (e) => { 
     e.preventDefault(); 
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const pass = document.getElementById('regPass').value;
-    const user = { name, email, pass, isLoggedIn: true };
-    localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ name, email, pass, isLoggedIn: true }));
     alert(`Account created successfully! Welcome, ${name}.`);
-    closeModal('registerModal');
-    checkAuth(); 
+    closeModal('registerModal'); checkAuth(); 
 };
 document.getElementById('loginForm').onsubmit = (e) => { 
     e.preventDefault(); 
@@ -512,93 +586,34 @@ document.getElementById('loginForm').onsubmit = (e) => {
     if (stored) {
         const user = JSON.parse(stored);
         if (user.email === email && user.pass === pass) {
-            user.isLoggedIn = true;
-            localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-            alert('Login successful!');
-            closeModal('loginModal');
-            checkAuth(); 
+            user.isLoggedIn = true; localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+            alert('Login successful!'); closeModal('loginModal'); checkAuth(); 
         } else { alert('Invalid email or password.'); }
     } else { alert('No account found. Please create an account first.'); }
 };
 window.logoutUser = function() {
     const stored = localStorage.getItem(AUTH_KEY);
-    if (stored) {
-        const user = JSON.parse(stored);
-        user.isLoggedIn = false;
-        localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-    }
-    alert('You have been logged out.');
-    checkAuth();
+    if (stored) { const user = JSON.parse(stored); user.isLoggedIn = false; localStorage.setItem(AUTH_KEY, JSON.stringify(user)); }
+    alert('You have been logged out.'); checkAuth();
 };
 checkAuth();
 
 const concepts = {
-  'cpp_vote': { code: `#include <iostream>
-using namespace std;
-int main() {
-    cout << "Enter your name: ";
-    string name;
-    cin >> name;
-    cout << "Enter your age: ";
-    int age;
-    cin >> age;
-    if (age >= 18) {
-        cout << "You are old enough to vote." << endl;
-    } else {
-        cout << "Sorry, you are not old enough to vote." << endl;
-    }
-    return 0;
-}` },
-  'c_calc': { code: `#include <stdio.h>
-int main() {
-    int a, b;
-    char op;
-    printf("Enter two numbers: ");
-    scanf("%d %d", &a, &b);
-    printf("Enter operator: ");
-    scanf(" %c", &op);
-    switch(op) {
-        case '+': printf("%d", a+b); break;
-        case '-': printf("%d", a-b); break;
-        default: printf("Invalid");
-    }
-    return 0;
-}` },
-  'java_calc': { code: `import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Num1: ");
-        double a = sc.nextDouble();
-        System.out.print("Num2: ");
-        double b = sc.nextDouble();
-        System.out.println("Sum: " + (a + b));
-    }
-}` },
-  'py_io': { code: `name = input("Your name: ")
-print("Hello " + name)` },
-  'py_loop': { code: `for i in range(1, 6):
-    print(i)` },
-  'c_loop': { code: `#include <stdio.h>
-int main() {
-    for(int i=1; i<=5; i++) printf("%d\\n", i);
-    return 0;
-}` },
-  'while_loop': { code: `public class Main {
-    public static void main(String[] args) {
-        int i = 0;
-        while (i < 5) {
-            System.out.println(i);
-            i += 2;
-        }
-    }
-}` }
+  'cpp_vote': { code: `#include <iostream>\nusing namespace std;\nint main() {\n    cout << "Enter your name: ";\n    string name;\n    cin >> name;\n    cout << "Enter your age: ";\n    int age;\n    cin >> age;\n    if (age >= 18) {\n        cout << "You are old enough to vote." << endl;\n    } else {\n        cout << "Sorry, you are not old enough to vote." << endl;\n    }\n    return 0;\n}` },
+  'c_calc': { code: `#include <stdio.h>\nint main() {\n    int a, b;\n    char op;\n    printf("Enter two numbers: ");\n    scanf("%d %d", &a, &b);\n    printf("Enter operator: ");\n    scanf(" %c", &op);\n    switch(op) {\n        case '+': printf("%d", a+b); break;\n        case '-': printf("%d", a-b); break;\n        default: printf("Invalid");\n    }\n    return 0;\n}` },
+  'java_calc': { code: `import java.util.Scanner;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.print("Num1: ");\n        double a = sc.nextDouble();\n        System.out.print("Num2: ");\n        double b = sc.nextDouble();\n        System.out.println("Sum: " + (a + b));\n    }\n}` },
+  'py_io': { code: `name = input("Your name: ")\nprint("Hello " + name)` },
+  'py_loop': { code: `for i in range(1, 6):\n    print(i)` },
+  'c_loop': { code: `#include <stdio.h>\nint main() {\n    for(int i=1; i<=5; i++) printf("%d\\n", i);\n    return 0;\n}` },
+  'while_loop': { code: `public class Main {\n    public static void main(String[] args) {\n        int i = 0;\n        while (i < 5) {\n            System.out.println(i);\n            i += 2;\n        }\n    }\n}` }
 };
+
 const editor = document.getElementById('codeInput');
 const selector = document.getElementById('conceptSelector');
 const speedRange = document.getElementById('speedRange');
 const speedValue = document.getElementById('speedValue');
 let animationSpeed = 1000;
+
 speedRange.addEventListener('input', (e) => {
   animationSpeed = parseInt(e.target.value);
   speedValue.textContent = (animationSpeed / 1000).toFixed(1) + 's';
@@ -609,6 +624,7 @@ selector.addEventListener('change', (e) => {
   else if (val === 'custom') editor.value = '';
 });
 if (!editor.value) editor.value = concepts['cpp_vote'].code;
+
 document.getElementById('copyBtn').addEventListener('click', () => {
   navigator.clipboard.writeText(editor.value).then(() => {
     const btn = document.getElementById('copyBtn');
@@ -626,72 +642,49 @@ function detectLanguage(code) {
     return 'python'; 
 }
 
-// --- SOCKET.IO REAL-TIME COMPILER LOGIC ---
+// --- SOCKET.IO REAL-TIME COMPILER ---
 const socket = io('http://localhost:5000');
 let isRunning = false;
 let shouldStop = false;
 let isSocketRunning = false; 
 
-socket.on('connect', () => {
-    console.log("Connected to Real-Time Compiler Server");
-});
+socket.on('connect', () => console.log("Connected to Real-Time Compiler Server"));
+socket.on('connect_error', () => console.log("Cannot reach the server on port 5000."));
 
-socket.on('connect_error', () => {
-    console.log("Cannot reach the server on port 5000.");
-});
-
-// 2. Listen for OUTPUT from the server
 socket.on('output', (data) => {
     const term = document.getElementById('outputConsole');
     const result = document.getElementById('programOutput');
-    
     term.innerHTML += `<div class="output-line">${escapeHtml(data)}</div>`;
     term.scrollTop = term.scrollHeight;
-
     if(result.innerText.trim() === 'Waiting for output...') result.innerText = '';
     result.innerText += data;
 });
 
-// 3. Listen for INPUT REQUEST from the server (INLINE TERMINAL MODE)
 socket.on('input_required', () => {
     if (!isSocketRunning) return; 
-    
     const currentCode = editor.value;
     const hasInputCommands = /input\s*\(|scanf\s*\(|cin\s*>>|Scanner|\.readLine/i.test(currentCode);
-    
-    if (!hasInputCommands) {
-        console.log("Ignored false input request (No input keywords found in code).");
-        return; 
-    }
-    
+    if (!hasInputCommands) { console.log("Ignored false input request."); return; }
     const wrapper = document.getElementById('inlineInputWrapper');
     const inputField = document.getElementById('inlineTerminalInput');
-    
-    // Show the inline terminal input
     wrapper.style.display = 'flex';
     inputField.value = '';
     inputField.focus();
-
-    // Listen for Enter key
     inputField.onkeydown = (e) => { 
         if (e.key === 'Enter') { 
             e.preventDefault(); 
             const val = inputField.value.trim();
             socket.emit('submit_input', val);
-            wrapper.style.display = 'none'; // Hide input box until next request
-            
-            // Print the user's input directly into the output screen so it looks like a real terminal!
+            wrapper.style.display = 'none';
             document.getElementById('programOutput').innerText += val + '\n';
         } 
     };
 });
 
-// 4. Handle Program Finish
 socket.on('finished', (code) => {
     const term = document.getElementById('outputConsole');
     term.innerHTML += `<div class="output-line" style="color:var(--warning)">> Program exited with code ${code}</div>`;
     term.scrollTop = term.scrollHeight;
-    
     document.getElementById('inlineInputWrapper').style.display = 'none';
     document.getElementById('stopBtn').style.display = 'none';
     document.getElementById('runBtn').disabled = false;
@@ -701,11 +694,9 @@ socket.on('finished', (code) => {
 });
 
 function stopExecution() {
-    shouldStop = true;
-    isSocketRunning = false; 
+    shouldStop = true; isSocketRunning = false; 
     socket.disconnect(); 
     setTimeout(() => socket.connect(), 1000); 
-    
     document.getElementById('inlineInputWrapper').style.display = 'none';
     document.getElementById('stopBtn').style.display = 'none';
     document.getElementById('outputConsole').innerHTML += '<div class="output-line" style="color:#E74C3C;">> Execution stopped by user</div>';
@@ -714,52 +705,33 @@ function stopExecution() {
     isRunning = false;
 }
 
-// ----------------------------------------------------
-// NEW BUTTON 1: RUN PROGRAM 
-// ----------------------------------------------------
 document.getElementById('runBtn').addEventListener('click', () => {
-    if (!socket.connected) {
-        alert("Server is Offline! Please run 'node server.js' in your terminal.");
-        return;
-    }
-
+    if (!socket.connected) { alert("Server is Offline! Please run 'node server.js' in your terminal."); return; }
     let code = editor.value.trim();
     if (!code) return;
     const language = detectLanguage(code);
     if (language === 'java') code = code.replace(/public\s+class\s+([A-Za-z0-9_]+)/g, 'class $1');
-
-    shouldStop = false;
-    isRunning = true;
-    isSocketRunning = true; 
-    
-    // UI states
+    shouldStop = false; isRunning = true; isSocketRunning = true; 
     document.getElementById('stopBtn').style.display = 'flex';
     document.getElementById('runBtn').disabled = true;
     document.getElementById('visualizeBtn').disabled = true;
     document.getElementById('resetBtn').disabled = false;
-    
     document.getElementById('inlineInputWrapper').style.display = 'none';
     document.getElementById('programOutput').innerText = 'Running...\n';
     document.getElementById('outputConsole').innerHTML = '<div class="output-line">> Compiling & Executing...</div>';
-
-    // SCROLL TO OUTPUT SECTION
     document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Send code to the Server
     socket.emit('run_code', { code, language });
 });
 
-// ----------------------------------------------------
-// NEW BUTTON 2: AI-POWERED VISUALIZE
-// ----------------------------------------------------
+// =====================================================
+// VISUALIZE — ENHANCED TO DEFEAT THE BLACK BOX
+// =====================================================
 document.getElementById('visualizeBtn').addEventListener('click', async () => {
     let code = editor.value.trim();
     if (!code) return;
 
-    shouldStop = false;
-    isRunning = true;
+    shouldStop = false; isRunning = true;
 
-    // UI states
     document.getElementById('stopBtn').style.display = 'flex';
     document.getElementById('runBtn').disabled = true;
     document.getElementById('visualizeBtn').disabled = true;
@@ -767,29 +739,30 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     document.getElementById('variablesList').innerHTML = ''; 
     document.getElementById('flowDiagram').innerHTML = '<p style="color:#64748b;">Generating diagram...</p>';
 
+    // Reset call stack + explanation UI
+    document.getElementById('callStackBar').style.display = 'none';
+    document.getElementById('stepExplanation').style.display = 'none';
+
     document.getElementById('visualize').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // 1. Generate Logic Diagram (Local logic)
+    // 1. Generate Logic Diagram
     const diagramCode = generateDynamicDiagram(code);
     try {
         const uniqueId = 'mermaidGraph_' + Date.now();
         const { svg } = await mermaid.render(uniqueId, diagramCode);
         document.getElementById('flowDiagram').innerHTML = svg;
     } catch (e) {
-        console.error(e);
         document.getElementById('flowDiagram').innerHTML = '<p style="color:red;">Diagram failed to generate.</p>';
     }
 
-    // 2. TRUE AI TRACE: Defeating the Black Box Effect!
+    // 2. AI TRACE
     const canvas = document.getElementById('animationCanvas');
-    canvas.innerHTML = '<p style="color:#0ea5e9;text-align:center;margin-top:50px;"><i class="fas fa-brain fa-spin"></i> AI is analyzing code and mapping terminal output...</p>';
+    canvas.innerHTML = '<p style="color:#0ea5e9;text-align:center;margin-top:50px;"><i class="fas fa-brain fa-spin"></i> AI is analyzing code and mapping execution state...</p>';
 
-    // Grab the ACTUAL output the user typed into the terminal to send to the AI
     let outputText = document.getElementById('programOutput').innerText;
     if (outputText.includes('Waiting for output...')) outputText = '';
 
     try {
-        // Send Code + User's Real Output to your Gemini backend
         const response = await fetch('http://localhost:5001/generate_trace', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -797,9 +770,9 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
         });
 
         if (!response.ok) throw new Error("AI Trace Failed");
-        const traceData = await response.json(); // This gets the pure JSON timeline from Gemini!
+        const traceData = await response.json();
 
-        // Setup the code viewer lines on the UI
+        // Build code line viewer
         const lines = code.split('\n');
         canvas.innerHTML = '';
         lines.forEach((line, i) => {
@@ -810,21 +783,59 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
             canvas.appendChild(div);
         });
 
-        // Play the AI's perfect timeline frame-by-frame
+        // Play the AI trace frame-by-frame
         for (const step of traceData) {
             if (shouldStop || !isRunning) break;
 
-            document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
-            
-            // AI schemas usually return line 1 as index 1, HTML uses 0-based IDs
+            // Clear previous active states
+            document.querySelectorAll('.code-line').forEach(el => {
+                el.classList.remove('active', 'active-call', 'active-return', 'active-error', 'active-skip');
+            });
+
+            const action = (step.action || 'highlight').toLowerCase();
             const lineNum = (step.line || 1) - 1;
+
+            // Handle skip steps — show a pill instead of highlighting a line
+            if (action === 'skip') {
+                const pill = document.createElement('div');
+                pill.className = 'skip-pill';
+                pill.textContent = step.explanation || '... steps skipped ...';
+                canvas.appendChild(pill);
+                await new Promise(r => setTimeout(r, animationSpeed));
+                continue;
+            }
+
+            // Highlight the current line with action-specific color
             const el = document.getElementById(`line-${lineNum}`);
             if (el) {
-                el.classList.add('active');
+                if (action === 'call')        el.classList.add('active-call');
+                else if (action === 'return') el.classList.add('active-return');
+                else if (action === 'error')  el.classList.add('active-error');
+                else                          el.classList.add('active');
                 el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // Update Memory with the AI's perfect analysis
+            // Update Call Stack bar
+            if (step.call_stack && step.call_stack.length > 0) {
+                const bar = document.getElementById('callStackBar');
+                const frames = document.getElementById('callStackFrames');
+                bar.style.display = 'block';
+                frames.innerHTML = step.call_stack.map((f, i) =>
+                    `<span class="cs-frame">${escapeHtml(f)}</span>${i < step.call_stack.length - 1 ? '<span class="cs-arrow">›</span>' : ''}`
+                ).join('');
+            } else {
+                document.getElementById('callStackBar').style.display = 'none';
+            }
+
+            // Update Step Explanation box
+            if (step.explanation) {
+                const box = document.getElementById('stepExplanation');
+                box.style.display = 'block';
+                document.getElementById('stepNumLabel').textContent = `Step ${step.step}`;
+                document.getElementById('stepExplanationText').textContent = step.explanation;
+            }
+
+            // Update Memory — handles primitives, arrays, AND objects
             if (step.memory_state) {
                 renderVariables(step.memory_state);
             }
@@ -845,56 +856,53 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     }
 });
 
-// Mermaid Logic Diagram Generator (Kept Local)
 mermaid.initialize({ startOnLoad: false, theme: 'default' });
 function generateDynamicDiagram(code) {
-  const lines = code.split('\n').filter(l => {
-    const t = l.trim();
-    return t.length > 1 && !t.startsWith('//') && !t.startsWith('#');
-  });
+  const lines = code.split('\n').filter(l => { const t = l.trim(); return t.length > 1 && !t.startsWith('//') && !t.startsWith('#'); });
   let graph = "graph TD\n    Start([Start])\n";
-  let prev = "Start";
-  let id = 0;
+  let prev = "Start"; let id = 0;
   lines.forEach(line => {
-    let cleanText = line.trim()
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/[':;{}()\[\]]/g, '') 
-        .substring(0, 30);
+    let cleanText = line.trim().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/[':;{}()\[\]]/g, '').substring(0, 30);
     if (!cleanText) cleanText = "Step"; 
-    const node = `N${id++}`;
-    const lower = line.toLowerCase();
-      
-    if (lower.includes('if') || lower.includes('else') || lower.includes('switch') || lower.includes('case')) {
-      graph += `    ${prev} --> ${node}{"${cleanText}"}\n`; 
-    } else if (lower.includes('for') || lower.includes('while') || lower.includes('do') || lower.includes('foreach')) {
-      graph += `    ${prev} --> ${node}(("${cleanText}"))\n`; 
-    } else if (lower.includes('print') || lower.includes('cout') || lower.includes('printf') || lower.includes('log') || lower.includes('system.out')) {
-      graph += `    ${prev} --> ${node}[/"${cleanText}"/]\n`; 
-    } else if (lower.includes('scanf') || lower.includes('cin') || lower.includes('input') || lower.includes('scanner') || lower.includes('read')) {
-      graph += `    ${prev} --> ${node}[/"${cleanText}"/]\n`; 
-    } else if (lower.includes('def') || lower.includes('function') || lower.includes('void') || lower.includes('class') || lower.includes('struct')) {
-      graph += `    ${prev} --> ${node}[["${cleanText}"]]\n`; 
-    } else if (lower.includes('return') || lower.includes('break') || lower.includes('continue')) {
-      graph += `    ${prev} --> ${node}(["${cleanText}"])\n`; 
-    } else {
-      graph += `    ${prev} --> ${node}["${cleanText}"]\n`; 
-    }
+    const node = `N${id++}`; const lower = line.toLowerCase();
+    if (lower.includes('if') || lower.includes('else') || lower.includes('switch') || lower.includes('case')) { graph += `    ${prev} --> ${node}{"${cleanText}"}\n`; }
+    else if (lower.includes('for') || lower.includes('while') || lower.includes('do') || lower.includes('foreach')) { graph += `    ${prev} --> ${node}(("${cleanText}"))\n`; }
+    else if (lower.includes('print') || lower.includes('cout') || lower.includes('printf') || lower.includes('log') || lower.includes('system.out')) { graph += `    ${prev} --> ${node}[/"${cleanText}"/]\n`; }
+    else if (lower.includes('scanf') || lower.includes('cin') || lower.includes('input') || lower.includes('scanner') || lower.includes('read')) { graph += `    ${prev} --> ${node}[/"${cleanText}"/]\n`; }
+    else if (lower.includes('def') || lower.includes('function') || lower.includes('void') || lower.includes('class') || lower.includes('struct')) { graph += `    ${prev} --> ${node}[["${cleanText}"]]\n`; }
+    else if (lower.includes('return') || lower.includes('break') || lower.includes('continue')) { graph += `    ${prev} --> ${node}(["${cleanText}"])\n`; }
+    else { graph += `    ${prev} --> ${node}["${cleanText}"]\n`; }
     prev = node;
   });
   graph += `    ${prev} --> End([End])`;
   return graph;
 }
 
+// FIXED renderVariables — handles objects, arrays, and primitives
 function renderVariables(vars) {
     const list = document.getElementById('variablesList');
     list.innerHTML = '';
     for (const [key, value] of Object.entries(vars)) {
         const badge = document.createElement('div');
         badge.className = 'var-badge';
-        badge.innerHTML = `${key} = <span style="color:#2563eb;">${value}</span>`;
+
+        // Stringify complex values (arrays, objects) so they display properly
+        let displayVal;
+        let isComplex = false;
+        if (typeof value === 'object' && value !== null) {
+            displayVal = JSON.stringify(value);
+            isComplex = true;
+        } else {
+            displayVal = String(value);
+        }
+
+        const valSpan = document.createElement('span');
+        valSpan.className = 'var-value' + (isComplex ? ' is-complex' : '');
+        valSpan.textContent = displayVal;
+        valSpan.title = displayVal; // full value on hover
+
+        badge.appendChild(document.createTextNode(key + ' = '));
+        badge.appendChild(valSpan);
         list.appendChild(badge);
     }
 }
@@ -911,15 +919,14 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     document.getElementById('inlineInputWrapper').style.display = 'none';
     document.getElementById('variablesList').innerHTML = '';
     document.getElementById('explanationSection').style.display = 'none';
+    document.getElementById('callStackBar').style.display = 'none';
+    document.getElementById('stepExplanation').style.display = 'none';
     isSocketRunning = false;
 });
 
 document.getElementById('explainBtn').addEventListener('click', async () => {
     const code = editor.value.trim();
-    if (!code) {
-        alert("Please enter code to explain!");
-        return;
-    }
+    if (!code) { alert("Please enter code to explain!"); return; }
     const explanationSection = document.getElementById('explanationSection');
     const contentDiv = document.getElementById('explanationContent');
     explanationSection.style.display = 'block';
@@ -927,42 +934,27 @@ document.getElementById('explainBtn').addEventListener('click', async () => {
     explanationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     try {
         const response = await fetch('http://localhost:5001/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: "Please analyze the following code and format your response exactly like this:\n\n1. **The Code:** (Show the exact code inside a syntax-highlighted block)\n2. **Command Lines:** (Show the terminal commands needed to compile and run this specific language)\n3. **Brief Explanation:** (Give a concise, step-by-step breakdown of how the logic works)\n\nHere is the code:\n\n" + code })
         });
         if (!response.ok) throw new Error("Server error");
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let accumulated = "";
+        const reader = response.body.getReader(); const decoder = new TextDecoder(); let accumulated = "";
         contentDiv.innerHTML = ""; 
         while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            const { done, value } = await reader.read(); if (done) break;
             accumulated += decoder.decode(value, {stream: true});
             contentDiv.innerHTML = marked.parse(accumulated, { breaks: true, gfm: true });
-            contentDiv.querySelectorAll('pre code').forEach((block) => {
-               hljs.highlightElement(block);
-            });
+            contentDiv.querySelectorAll('pre code').forEach((block) => { hljs.highlightElement(block); });
         }
-    } catch (err) {
-        contentDiv.innerHTML = `<span style="color:red;">Error getting explanation: ${err.message}</span>`;
-    }
+    } catch (err) { contentDiv.innerHTML = `<span style="color:red;">Error getting explanation: ${err.message}</span>`; }
 });
 
-// ========== ENHANCED AI CHAT FUNCTIONS ==========
 let abortController = null; 
-function toggleChat() {
-    const w = document.getElementById('chatWindow');
-    w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
-}
-function handleEnter(e) { 
-    if (e.key === 'Enter') sendMessage(); 
-}
+function toggleChat() { const w = document.getElementById('chatWindow'); w.style.display = (w.style.display === 'flex') ? 'none' : 'flex'; }
+function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
 function stopChat() {
     if (abortController) {
-        abortController.abort(); 
-        abortController = null;
+        abortController.abort(); abortController = null;
         document.getElementById('sendChatBtn').style.display = 'block';
         document.getElementById('stopChatBtn').style.display = 'none';
         const msgs = document.getElementById('chatMessages');
@@ -971,119 +963,55 @@ function stopChat() {
     }
 }
 async function sendMessage() {
-    const input = document.getElementById('userInput');
-    const msgs = document.getElementById('chatMessages');
-    const sendBtn = document.getElementById('sendChatBtn');
-    const stopBtn = document.getElementById('stopChatBtn');
-      
-    const text = input.value.trim();
-    if (!text) return;
-      
-    const userDiv = document.createElement('div');
-    userDiv.className = 'message user';
-    userDiv.textContent = text;
-    msgs.appendChild(userDiv);
+    const input = document.getElementById('userInput'); const msgs = document.getElementById('chatMessages');
+    const sendBtn = document.getElementById('sendChatBtn'); const stopBtn = document.getElementById('stopChatBtn');
+    const text = input.value.trim(); if (!text) return;
+    const userDiv = document.createElement('div'); userDiv.className = 'message user'; userDiv.textContent = text; msgs.appendChild(userDiv);
     input.value = '';
-      
-    const aiBubble = document.createElement('div');
-    aiBubble.className = 'message ai';
-    aiBubble.innerHTML = '<i>thinking...</i>';
-    msgs.appendChild(aiBubble);
+    const aiBubble = document.createElement('div'); aiBubble.className = 'message ai'; aiBubble.innerHTML = '<i>thinking...</i>'; msgs.appendChild(aiBubble);
     msgs.scrollTop = msgs.scrollHeight;
-      
-    sendBtn.style.display = 'none';
-    stopBtn.style.display = 'block';
-      
+    sendBtn.style.display = 'none'; stopBtn.style.display = 'block';
     abortController = new AbortController();
-      
     try {
         const response = await fetch('http://localhost:5001/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                message: text
-            }),
-            signal: abortController.signal
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text }), signal: abortController.signal
         });
-         
         if (!response.ok) throw new Error("Server error");
-         
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let accumulated = "";
-         
+        const reader = response.body.getReader(); const decoder = new TextDecoder(); let accumulated = "";
         while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-             
+            const { done, value } = await reader.read(); if (done) break;
             accumulated += decoder.decode(value, {stream: true});
-            processAndDisplayMarkdown(accumulated, aiBubble);
-            msgs.scrollTop = msgs.scrollHeight;
+            processAndDisplayMarkdown(accumulated, aiBubble); msgs.scrollTop = msgs.scrollHeight;
         }
-         
     } catch (err) {
-        if (err.name !== 'AbortError') {
-            aiBubble.innerHTML = `<span style="color:#e74c3c;">Error: ${escapeHtml(err.message || "Connection failed")}<br>Is python agent.py running on port 5001?</span>`;
-        }
-    } finally {
-        sendBtn.style.display = 'block';
-        stopBtn.style.display = 'none';
-        abortController = null;
-    }
+        if (err.name !== 'AbortError') { aiBubble.innerHTML = `<span style="color:#e74c3c;">Error: ${escapeHtml(err.message || "Connection failed")}<br>Is python agent.py running on port 5001?</span>`; }
+    } finally { sendBtn.style.display = 'block'; stopBtn.style.display = 'none'; abortController = null; }
 }
 function processAndDisplayMarkdown(markdown, targetElement) {
     let html = marked.parse(markdown, { breaks: true, gfm: true });
-    const temp = document.createElement('div');
-    temp.innerHTML = html;
-      
-    const preBlocks = temp.querySelectorAll('pre');
-    preBlocks.forEach((pre, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'code-wrapper';
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'copy-btn';
-        copyBtn.textContent = 'COPY';
+    const temp = document.createElement('div'); temp.innerHTML = html;
+    temp.querySelectorAll('pre').forEach(pre => {
+        const wrapper = document.createElement('div'); wrapper.className = 'code-wrapper';
+        const copyBtn = document.createElement('button'); copyBtn.className = 'copy-btn'; copyBtn.textContent = 'COPY';
         copyBtn.onclick = function() { window.copyCodeNow(this); };
-        const newPre = pre.cloneNode(true);
-        wrapper.appendChild(copyBtn);
-        wrapper.appendChild(newPre);
-        pre.replaceWith(wrapper);
+        const newPre = pre.cloneNode(true); wrapper.appendChild(copyBtn); wrapper.appendChild(newPre); pre.replaceWith(wrapper);
     });
-      
     targetElement.innerHTML = temp.innerHTML;
-    targetElement.querySelectorAll('pre code').forEach((block) => {
-        if (!block.classList.contains('hljs')) {
-            hljs.highlightElement(block);
-        }
-    });
+    targetElement.querySelectorAll('pre code').forEach(block => { if (!block.classList.contains('hljs')) hljs.highlightElement(block); });
 }
 document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('copy-btn')) {
-        e.preventDefault();
-        e.stopPropagation();
-        const button = e.target;
-        const pre = button.nextElementSibling;
-        if (!pre) return;
+        e.preventDefault(); e.stopPropagation();
+        const button = e.target; const pre = button.nextElementSibling; if (!pre) return;
         const code = pre.textContent || pre.innerText;
         navigator.clipboard.writeText(code).then(() => {
-            button.textContent = 'Copied!';
-            button.classList.add('copied');
-            setTimeout(() => {
-                button.textContent = 'COPY';
-                button.classList.remove('copied');
-            }, 2000);
-        }).catch(err => {
-            console.error('Copy failed:', err);
-            button.textContent = 'Failed';
-            setTimeout(() => { button.textContent = 'COPY'; }, 2000);
-        });
+            button.textContent = 'Copied!'; button.classList.add('copied');
+            setTimeout(() => { button.textContent = 'COPY'; button.classList.remove('copied'); }, 2000);
+        }).catch(err => { console.error('Copy failed:', err); button.textContent = 'Failed'; setTimeout(() => { button.textContent = 'COPY'; }, 2000); });
     }
 });
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
+function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
 </script>
 </body>
 </html>

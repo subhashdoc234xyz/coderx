@@ -11,12 +11,7 @@ TARGET_MODEL = 'gemini-2.5-flash'
 
 # --- API KEY ROTATION SETUP ---
 API_KEYS = [
-    "AIzaSyDbooRheCtvEeiEBY9a0UjzUVjX5c9mtFQ",
-    "AIzaSyDgi5GsXqtP4fKtAq_p6Noaf_40_RkPdlY",
-    "AIzaSyBw9K5SesHnoQzIp9ACEMNUPo8383vF37M",
-    "AIzaSyDeEJYlbh6qcHLeKZ3P3p57y2BgIc6qMLc",
-    "AIzaSyC900lqXBqu7ZM2gLahPsHDSgQ9bQSguFc",
-    "AIzaSyDX6FqGwXOSFGaAoUP9QnGQJdP1EK-zhbY",
+    
     # ... add all your keys here
 ]
 
