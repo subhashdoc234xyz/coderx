@@ -946,10 +946,31 @@ function getVisualSequence(lines) {
     }
     return sequence;
 }
+
+// ==========================================
+// UPDATED updateMemorySimulation FUNCTION
+// ==========================================
 function updateMemorySimulation(line, currentVars, inputQueue) {
     let trim = line.trim().replace(/;$/, ''); 
     if (!trim || trim.startsWith('//') || trim.startsWith('#') || trim.startsWith('return')) return false;
-      
+
+    // 1. Handle 'for' loop initialization and counting (e.g., for (int i = 0; i < 10; i++))
+    const forMatch = trim.match(/for\s*\(\s*(?:int|float|double|var|let)?\s*([a-zA-Z_]\w*)\s*=\s*([0-9]+)/);
+    if (forMatch) {
+        const varName = forMatch[1];
+        const initVal = parseInt(forMatch[2]);
+        
+        // If it's the first time seeing the loop, initialize. Otherwise, increment!
+        if (currentVars[varName] === undefined) {
+            currentVars[varName] = initVal; 
+        } else {
+            if (trim.includes(varName + '++')) currentVars[varName]++;
+            else if (trim.includes(varName + '--')) currentVars[varName]--;
+        }
+        return true;
+    }
+
+    // 2. Handle C++ and C inputs
     if (trim.includes('cin >>')) {
         const parts = trim.split('>>');
         for (let i = 1; i < parts.length; i++) {
@@ -968,14 +989,32 @@ function updateMemorySimulation(line, currentVars, inputQueue) {
             return true;
         }
     }
-    const assignMatch = trim.match(/^(?:int|float|double|char|string|boolean|long|auto|var|let|const)?\s*([a-zA-Z_]\w*)\s*=\s*(.+)$/);
+
+    // 3. Handle Assignments INCLUDING Arrays (e.g., x = 5, or numbers[i] = scanner.nextInt())
+    // Added (?:\[.*?\])? to specifically allow array brackets in the memory tracker
+    const assignMatch = trim.match(/^(?:int|float|double|char|string|boolean|long|auto|var|let|const)?\s*([a-zA-Z_]\w*(?:\[.*?\])?)\s*=\s*(.+)$/);
     if (assignMatch) {
-        let name = assignMatch[1];
+        let rawName = assignMatch[1];
         let expr = assignMatch[2];
+
+        // If it's an array like numbers[i], translate the 'i' to its actual current number
+        let name = rawName;
+        const arrayMatch = rawName.match(/([a-zA-Z_]\w*)\[([a-zA-Z_]\w*)\]/);
+        if (arrayMatch && currentVars[arrayMatch[2]] !== undefined) {
+            name = `${arrayMatch[1]}[${currentVars[arrayMatch[2]]}]`; // e.g., numbers[0]
+        }
+
+        // Handle Java Scanner or Python Input
         if (expr.match(/input\s*\(/) || expr.includes('.next')) {
-            if (inputQueue && inputQueue.length > 0) currentVars[name] = inputQueue.shift(); 
+            if (inputQueue && inputQueue.length > 0) {
+                currentVars[name] = inputQueue.shift(); 
+            } else {
+                currentVars[name] = "? (Scanned Input)"; // Fallback so it still shows in memory!
+            }
             return true;
         }
+
+        // Standard math evaluation
         try {
             let evalExpr = expr;
             let canEval = true;
@@ -989,7 +1028,7 @@ function updateMemorySimulation(line, currentVars, inputQueue) {
                          canEval = false; 
                      }
                  } else if (!isNaN(token) || token === 'true' || token === 'false') {
-                 } else {
+                 } else if (token !== 'new' && token !== 'int') { // Ignore java keywords
                      canEval = false; 
                  }
             }
@@ -1007,6 +1046,8 @@ function updateMemorySimulation(line, currentVars, inputQueue) {
         }
         return true;
     }
+
+    // 4. Handle standalone increments (e.g. i++)
     const incMatch = trim.match(/([a-zA-Z_]\w*)\s*(\+\+|--)/);
     if (incMatch) {
         const name = incMatch[1];
@@ -1023,6 +1064,8 @@ function updateMemorySimulation(line, currentVars, inputQueue) {
     }
     return false;
 }
+// ==========================================
+
 function renderVariables(vars) {
     const list = document.getElementById('variablesList');
     list.innerHTML = '';
