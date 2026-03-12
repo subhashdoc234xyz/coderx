@@ -1,16 +1,21 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+
 int main() {
-    cout << "Enter your name: ";
-    string name;
-    cin >> name;
-    cout << "Enter your age: ";
-    int age;
-    cin >> age;
-    if (age >= 18) {
-        cout << "You are old enough to vote." << endl;
-    } else {
-        cout << "Sorry, you are not old enough to vote." << endl;
+    int numbers[10]; // Declare an array to store 10 integers
+    int i;           // Loop counter
+
+    // Loop to get 10 integer inputs from the user
+    printf("Please enter 10 integers:\n");
+    for (i = 0; i < 10; i++) {
+        printf("Enter integer %d: ", i + 1);
+        scanf("%d", &numbers[i]); // Read an integer and store it in the array
     }
-    return 0;
+
+    // Loop to print the 10 stored integers
+    printf("\nYou entered the following integers:\n");
+    for (i = 0; i < 10; i++) {
+        printf("Integer %d: %d\n", i + 1, numbers[i]);
+    }
+
+    return 0; // Indicate successful execution
 }
