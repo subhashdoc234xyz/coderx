@@ -11,14 +11,11 @@ TARGET_MODEL = 'gemini-2.5-flash'
 
 # --- API KEY ROTATION SETUP ---
 API_KEYS = [
-    "AIzaSyDbooRheCtvEeiEBY9a0UjzUVjX5c9mtFQ",
-    "AIzaSyDgi5GsXqtP4fKtAq_p6Noaf_40_RkPdlY",
-    "AIzaSyBw9K5SesHnoQzIp9ACEMNUPo8383vF37M",
-    "AIzaSyDeEJYlbh6qcHLeKZ3P3p57y2BgIc6qMLc",
-    "AIzaSyC900lqXBqu7ZM2gLahPsHDSgQ9bQSguFc",
-    "AIzaSyDX6FqGwXOSFGaAoUP9QnGQJdP1EK-zhbY",
-    "AIzaSyB0bacCoEzOoBe_AizFG6VKLGoc2eY39vg",
-    # ... add all your keys here
+    os.getenv("gemini_key_1"),
+    os.getenv("gemini_key_2"),
+    os.getenv("gemini_key_3"),
+    os.getenv("gemini_key_4"),
+    os.getenv("gemini_key_5")
 ]
 
 # Global tracker for which key we are currently using
