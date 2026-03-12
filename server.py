@@ -2,6 +2,11 @@ from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import google.generativeai as genai
 import json
+import os
+from dotenv import load_dotenv
+
+# Load the hidden keys from your .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app) 
@@ -17,6 +22,9 @@ API_KEYS = [
     os.getenv("gemini_key_4"),
     os.getenv("gemini_key_5")
 ]
+
+# Safety net: Remove any empty keys if you didn't set all 5 in the .env file
+API_KEYS = [key for key in API_KEYS if key is not None]
 
 # Global tracker for which key we are currently using
 CURRENT_KEY_INDEX = 0
