@@ -4,17 +4,23 @@ int main() {
     int numbers[10]; // Declare an array to store 10 integers
     int i;           // Loop counter
 
-    // Loop to get 10 integer inputs
     printf("Enter 10 integers:\n");
+
+    // Loop to get 10 integer inputs
     for (i = 0; i < 10; i++) {
         printf("Enter integer %d: ", i + 1);
-        scanf("%d", &numbers[i]); // Read an integer and store it in the array
+        if (scanf("%d", &numbers[i]) != 1) {
+            printf("Invalid input. Please enter an integer.\n");
+            // Optionally handle error or exit
+            return 1; // Indicate an error
+        }
     }
 
+    printf("\nYou entered the following integers:\n");
+
     // Loop to print the 10 stored integers
-    printf("\nThe integers you entered are:\n");
     for (i = 0; i < 10; i++) {
-        printf("%d\n", numbers[i]); // Print each integer from the array
+        printf("Integer %d: %d\n", i + 1, numbers[i]);
     }
 
     return 0; // Indicate successful execution

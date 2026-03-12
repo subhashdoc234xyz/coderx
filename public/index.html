@@ -846,13 +846,11 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
     } catch (err) {
         console.error(err);
         canvas.innerHTML = '<p style="color:red;text-align:center;margin-top:50px;">Error: AI could not map the trace. Did you run the program first to generate terminal output?</p>';
-    }
-
-    if (isRunning) { 
+    } finally {
+        isRunning = false;
         document.getElementById('stopBtn').style.display = 'none';
         document.getElementById('runBtn').disabled = false;
         document.getElementById('visualizeBtn').disabled = false;
-        isRunning = false;
     }
 });
 
