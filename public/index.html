@@ -812,7 +812,7 @@ document.getElementById('visualizeBtn').addEventListener('click', async () => {
                 else if (action === 'return') el.classList.add('active-return');
                 else if (action === 'error')  el.classList.add('active-error');
                 else                          el.classList.add('active');
-                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                canvas.scrollTop = el.offsetTop - canvas.offsetTop - (canvas.clientHeight / 2);
             }
 
             // Update Call Stack bar
