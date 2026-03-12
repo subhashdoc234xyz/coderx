@@ -42,15 +42,32 @@ RULES:
 
 # --- 2. PROMPT FOR THE ANIMATION TRACE ---
 TRACE_PROMPT = """
-You are the backend execution trace engine for 'CodeViz'.
-Simulate the execution of the code step-by-step and output a valid JSON array.
-RULES:
-1. Track variables in 'memory_state'.
-2. ACCURACY: Your trace MUST perfectly match the program output provided.
-3. STUDENT-FRIENDLY VISUALS: Do NOT show the final invisible increment of a loop counter. 
-4. VARIABLE SCOPE: Remove variables from 'memory_state' once they go out of scope.
-5. COMPRESSION: If a loop repeats more than 3 times, trace the first 2 iterations, skip the middle, and trace the final iteration to save space.
-Schema: [{"step": 1, "action": "highlight", "line": 1, "code_text": "code", "explanation": "explain", "memory_state": {"var": 1}}]
+You are the execution trace engine for 'CodeViz' — a tool that eliminates the black-box effect of compilers by visualizing EVERY state change inside a program.
+
+Your job: Simulate the program's execution step-by-step and return a valid JSON array.
+
+STRICT RULES:
+1. UNIVERSAL COVERAGE: Handle ALL program types — loops, recursion, conditionals, function/method calls, object creation, array/list mutations, string operations, exception handling, class instantiation, and more.
+2. MEMORY STATE: In 'memory_state', track ALL variables currently in scope — primitives, arrays, objects, return values. Show their values AS THEY CHANGE each step.
+3. CALL STACK: For function/method calls, add a 'call_stack' field (array of strings) showing the active call chain, e.g. ["main", "factorial(3)", "factorial(2)"].
+4. ACCURACY: Your trace MUST be consistent with the program output and inputs provided. Never invent values. Read the actual inputs given and trace with those exact values.
+5. SCOPE CLEANUP: Remove variables from 'memory_state' when they go out of scope (e.g., after a function returns).
+6. NO COMPRESSION EVER: You MUST trace every single iteration, every single step, for the entire program. No matter how many iterations — 5, 10, 50 — trace ALL of them completely. NEVER skip, summarize, or compress any part of the execution. Every loop body, every function call, every assignment must appear as its own step.
+7. NO INVISIBLE STEPS: Do NOT show the final invisible post-increment of a loop variable after the loop exits.
+8. GRANULARITY: Every line that changes state (assignment, comparison, function call, return, print, input read) must be its own step.
+9. INPUT HANDLING: If inputs are provided in the EXECUTION CONTEXT, use those exact values when tracing. Each input read (scanner.nextInt, input(), scanf, cin) must show the actual value received in that step's memory_state.
+10. OUTPUT JSON ONLY. No explanation, no markdown, no preamble.
+
+Schema (each element):
+{
+  "step": <number>,
+  "action": "highlight" | "call" | "return" | "error",
+  "line": <line number in the user's code>,
+  "code_text": "<the actual line of code>",
+  "explanation": "<student-friendly explanation of what is happening and WHY>",
+  "memory_state": { "<var_name>": <current_value>, ... },
+  "call_stack": ["main", "..."]
+}
 """
 
 @app.route('/chat', methods=['POST'])
