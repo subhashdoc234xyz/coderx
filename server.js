@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 // --- ADDED THIS LINE ---
-app.use(express.static('public')); 
+app.use(express.static('docs'));
 // -----------------------
 
 const server = http.createServer(app);
