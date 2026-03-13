@@ -8,13 +8,13 @@ class Main {
         System.out.println("Please enter 10 integers:");
 
         for (int i = 0; i < 10; i++) {
-            System.out.print("Enter integer #" + (i + 1) + ": ");
+            System.out.print("Enter integer " + (i + 1) + ": ");
             numbers[i] = scanner.nextInt();
         }
 
         System.out.println("\nYou entered the following integers:");
         for (int i = 0; i < 10; i++) {
-            System.out.println("Integer #" + (i + 1) + ": " + numbers[i]);
+            System.out.println("Integer " + (i + 1) + ": " + numbers[i]);
         }
 
         scanner.close();

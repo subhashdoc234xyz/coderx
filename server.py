@@ -21,28 +21,8 @@ API_KEYS = [
     os.getenv("gemini_key_3"),
     os.getenv("gemini_key_4"),
     os.getenv("gemini_key_5"),
-    os.getenv("gemini_key_6"),
-    os.getenv("gemini_key_7"),
-    os.getenv("gemini_key_8"),
-    os.getenv("gemini_key_9"),
-    os.getenv("gemini_key_10"),
-    os.getenv("gemini_key_11"),
-    os.getenv("gemini_key_12"),
-    os.getenv("gemini_key_13"),
-    os.getenv("gemini_key_14"),
-    os.getenv("gemini_key_15"),
-    os.getenv("gemini_key_16"),
-    os.getenv("gemini_key_17"),
-    os.getenv("gemini_key_18"),
-    os.getenv("gemini_key_19"),
-    os.getenv("gemini_key_20"),
-    os.getenv("gemini_key_21"),
-    os.getenv("gemini_key_22"),
-    os.getenv("gemini_key_23"),
-    os.getenv("gemini_key_24"),
-    os.getenv("gemini_key_25"),
-    os.getenv("gemini_key_26"),
-    os.getenv("gemini_key_27")
+    os.getenv("gemini_key_6")
+    
 ]
 
 # Safety net: Remove any empty keys if you didn't set all 5 in the .env file
